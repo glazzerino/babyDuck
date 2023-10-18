@@ -1,4 +1,17 @@
--(1 + 2)/3;
-1;
-2+3;
-8*9
+program patito;
+var x: int;
+var y: float;
+void func()[{ 
+    print("hola patito"); 
+}];
+
+void test(a: int, b: float) [ var x, y, z: float; { 
+        print("hola patita"); 
+    }
+];
+main {
+    while {
+        x = 2;
+    } do (x < 3);
+}
+end

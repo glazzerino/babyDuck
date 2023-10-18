@@ -1,4 +1,4 @@
-# Generated from ./baby_duck_grammar.g4 by ANTLR 4.13.1
+# Generated from baby_duck_grammar.g4 by ANTLR 4.13.0
 from antlr4 import *
 if "." in __name__:
     from .baby_duck_grammarParser import baby_duck_grammarParser
@@ -17,30 +17,12 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by baby_duck_grammarParser#funcs_list.
-    def enterFuncs_list(self, ctx:baby_duck_grammarParser.Funcs_listContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#funcs_list.
-    def exitFuncs_list(self, ctx:baby_duck_grammarParser.Funcs_listContext):
-        pass
-
-
     # Enter a parse tree produced by baby_duck_grammarParser#body.
     def enterBody(self, ctx:baby_duck_grammarParser.BodyContext):
         pass
 
     # Exit a parse tree produced by baby_duck_grammarParser#body.
     def exitBody(self, ctx:baby_duck_grammarParser.BodyContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#statement_list.
-    def enterStatement_list(self, ctx:baby_duck_grammarParser.Statement_listContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#statement_list.
-    def exitStatement_list(self, ctx:baby_duck_grammarParser.Statement_listContext):
         pass
 
 
@@ -152,33 +134,6 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by baby_duck_grammarParser#print_arg.
-    def enterPrint_arg(self, ctx:baby_duck_grammarParser.Print_argContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#print_arg.
-    def exitPrint_arg(self, ctx:baby_duck_grammarParser.Print_argContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#print_helper.
-    def enterPrint_helper(self, ctx:baby_duck_grammarParser.Print_helperContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#print_helper.
-    def exitPrint_helper(self, ctx:baby_duck_grammarParser.Print_helperContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#print_helper_inner.
-    def enterPrint_helper_inner(self, ctx:baby_duck_grammarParser.Print_helper_innerContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#print_helper_inner.
-    def exitPrint_helper_inner(self, ctx:baby_duck_grammarParser.Print_helper_innerContext):
-        pass
-
-
     # Enter a parse tree produced by baby_duck_grammarParser#cycle.
     def enterCycle(self, ctx:baby_duck_grammarParser.CycleContext):
         pass
@@ -266,24 +221,6 @@ class baby_duck_grammarListener(ParseTreeListener):
 
     # Exit a parse tree produced by baby_duck_grammarParser#f_call_helper.
     def exitF_call_helper(self, ctx:baby_duck_grammarParser.F_call_helperContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#expression_list.
-    def enterExpression_list(self, ctx:baby_duck_grammarParser.Expression_listContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#expression_list.
-    def exitExpression_list(self, ctx:baby_duck_grammarParser.Expression_listContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#expression_list_helper.
-    def enterExpression_list_helper(self, ctx:baby_duck_grammarParser.Expression_list_helperContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#expression_list_helper.
-    def exitExpression_list_helper(self, ctx:baby_duck_grammarParser.Expression_list_helperContext):
         pass
 
 
