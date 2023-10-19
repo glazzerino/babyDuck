@@ -89,6 +89,24 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by baby_duck_grammarParser#print.
+    def enterPrint(self, ctx:baby_duck_grammarParser.PrintContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#print.
+    def exitPrint(self, ctx:baby_duck_grammarParser.PrintContext):
+        pass
+
+
+    # Enter a parse tree produced by baby_duck_grammarParser#print_helper.
+    def enterPrint_helper(self, ctx:baby_duck_grammarParser.Print_helperContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#print_helper.
+    def exitPrint_helper(self, ctx:baby_duck_grammarParser.Print_helperContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#f_param_list.
     def enterF_param_list(self, ctx:baby_duck_grammarParser.F_param_listContext):
         pass
@@ -122,15 +140,6 @@ class baby_duck_grammarListener(ParseTreeListener):
 
     # Exit a parse tree produced by baby_duck_grammarParser#vars.
     def exitVars(self, ctx:baby_duck_grammarParser.VarsContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#print.
-    def enterPrint(self, ctx:baby_duck_grammarParser.PrintContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#print.
-    def exitPrint(self, ctx:baby_duck_grammarParser.PrintContext):
         pass
 
 
@@ -185,24 +194,6 @@ class baby_duck_grammarListener(ParseTreeListener):
 
     # Exit a parse tree produced by baby_duck_grammarParser#factor.
     def exitFactor(self, ctx:baby_duck_grammarParser.FactorContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#factor_expr.
-    def enterFactor_expr(self, ctx:baby_duck_grammarParser.Factor_exprContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#factor_expr.
-    def exitFactor_expr(self, ctx:baby_duck_grammarParser.Factor_exprContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#factor_op.
-    def enterFactor_op(self, ctx:baby_duck_grammarParser.Factor_opContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#factor_op.
-    def exitFactor_op(self, ctx:baby_duck_grammarParser.Factor_opContext):
         pass
 
 

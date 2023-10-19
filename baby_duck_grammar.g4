@@ -5,7 +5,8 @@ INT: [0-9]+;
 WS: [ \t\r\n]+ -> skip;
 FLOAT: [0-9]+ '.' [0-9]+;
 
-program: 'program' ID ';' vars* funcs* 'main' body 'end';
+
+program: 'program' ID ';' vars? funcs* 'main' body 'end';
 
 body: '{' statement* '}';
 
@@ -18,9 +19,14 @@ assign: ID '=' expression ';';
 expression: exp (rel_op exp)?;
 
 rel_op: '<' | '>' | '!=';
+
 cte: INT | FLOAT;
 
 exp: term ((('+' | '-') term)*);
+
+print: 'print' '(' print_helper? ')' ';';
+
+print_helper: (expression | STRING) (',' (expression | STRING))*;
 
 f_param_list: (f_param_list_helper (',' f_param_list_helper)*)?;
 
@@ -28,9 +34,7 @@ f_param_list_helper: (ID ':' type);
 
 funcs: 'void' ID '(' f_param_list ')' '[' vars? body ']' ';';
 
-vars: 'var' ID (',' ID)* ':' type ';';
-
-print: 'print' '(' (expression | STRING)+ ')' ';';
+vars: 'var' (ID (',' ID)* ':' type ';')+;
 
 STRING: '"' .*? '"';
 
@@ -44,11 +48,7 @@ term: factor term_helper?;
 
 term_helper: '*' term | '/' term;
 
-factor: factor_expr | factor_op;
-
-factor_expr: '(' expression ')';
-
-factor_op: ('+' | '-')? (ID | cte);
+factor: '(' expression ')' | (('+' | '-')? (ID | cte));
 
 f_call: ID '(' f_call_helper? ')' ';';
 
