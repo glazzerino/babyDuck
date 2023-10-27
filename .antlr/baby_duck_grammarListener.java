@@ -97,6 +97,26 @@ public interface baby_duck_grammarListener extends ParseTreeListener {
 	 */
 	void exitExp(baby_duck_grammarParser.ExpContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link baby_duck_grammarParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrint(baby_duck_grammarParser.PrintContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link baby_duck_grammarParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrint(baby_duck_grammarParser.PrintContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link baby_duck_grammarParser#print_helper}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrint_helper(baby_duck_grammarParser.Print_helperContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link baby_duck_grammarParser#print_helper}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrint_helper(baby_duck_grammarParser.Print_helperContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link baby_duck_grammarParser#f_param_list}.
 	 * @param ctx the parse tree
 	 */
@@ -136,16 +156,6 @@ public interface baby_duck_grammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVars(baby_duck_grammarParser.VarsContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link baby_duck_grammarParser#print}.
-	 * @param ctx the parse tree
-	 */
-	void enterPrint(baby_duck_grammarParser.PrintContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link baby_duck_grammarParser#print}.
-	 * @param ctx the parse tree
-	 */
-	void exitPrint(baby_duck_grammarParser.PrintContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link baby_duck_grammarParser#cycle}.
 	 * @param ctx the parse tree
@@ -187,16 +197,6 @@ public interface baby_duck_grammarListener extends ParseTreeListener {
 	 */
 	void exitTerm(baby_duck_grammarParser.TermContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link baby_duck_grammarParser#term_helper}.
-	 * @param ctx the parse tree
-	 */
-	void enterTerm_helper(baby_duck_grammarParser.Term_helperContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link baby_duck_grammarParser#term_helper}.
-	 * @param ctx the parse tree
-	 */
-	void exitTerm_helper(baby_duck_grammarParser.Term_helperContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link baby_duck_grammarParser#factor}.
 	 * @param ctx the parse tree
 	 */
@@ -206,26 +206,6 @@ public interface baby_duck_grammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFactor(baby_duck_grammarParser.FactorContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link baby_duck_grammarParser#factor_expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor_expr(baby_duck_grammarParser.Factor_exprContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link baby_duck_grammarParser#factor_expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor_expr(baby_duck_grammarParser.Factor_exprContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link baby_duck_grammarParser#factor_op}.
-	 * @param ctx the parse tree
-	 */
-	void enterFactor_op(baby_duck_grammarParser.Factor_opContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link baby_duck_grammarParser#factor_op}.
-	 * @param ctx the parse tree
-	 */
-	void exitFactor_op(baby_duck_grammarParser.Factor_opContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link baby_duck_grammarParser#f_call}.
 	 * @param ctx the parse tree

@@ -124,6 +124,30 @@ public class baby_duck_grammarBaseListener implements baby_duck_grammarListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPrint(baby_duck_grammarParser.PrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrint(baby_duck_grammarParser.PrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrint_helper(baby_duck_grammarParser.Print_helperContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrint_helper(baby_duck_grammarParser.Print_helperContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterF_param_list(baby_duck_grammarParser.F_param_listContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -167,18 +191,6 @@ public class baby_duck_grammarBaseListener implements baby_duck_grammarListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVars(baby_duck_grammarParser.VarsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPrint(baby_duck_grammarParser.PrintContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrint(baby_duck_grammarParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -232,18 +244,6 @@ public class baby_duck_grammarBaseListener implements baby_duck_grammarListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTerm_helper(baby_duck_grammarParser.Term_helperContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitTerm_helper(baby_duck_grammarParser.Term_helperContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFactor(baby_duck_grammarParser.FactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -251,30 +251,6 @@ public class baby_duck_grammarBaseListener implements baby_duck_grammarListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFactor(baby_duck_grammarParser.FactorContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFactor_expr(baby_duck_grammarParser.Factor_exprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFactor_expr(baby_duck_grammarParser.Factor_exprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFactor_op(baby_duck_grammarParser.Factor_opContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFactor_op(baby_duck_grammarParser.Factor_opContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

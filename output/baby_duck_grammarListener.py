@@ -143,6 +143,15 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by baby_duck_grammarParser#vars_declarations.
+    def enterVars_declarations(self, ctx:baby_duck_grammarParser.Vars_declarationsContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#vars_declarations.
+    def exitVars_declarations(self, ctx:baby_duck_grammarParser.Vars_declarationsContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#cycle.
     def enterCycle(self, ctx:baby_duck_grammarParser.CycleContext):
         pass
@@ -176,15 +185,6 @@ class baby_duck_grammarListener(ParseTreeListener):
 
     # Exit a parse tree produced by baby_duck_grammarParser#term.
     def exitTerm(self, ctx:baby_duck_grammarParser.TermContext):
-        pass
-
-
-    # Enter a parse tree produced by baby_duck_grammarParser#term_helper.
-    def enterTerm_helper(self, ctx:baby_duck_grammarParser.Term_helperContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#term_helper.
-    def exitTerm_helper(self, ctx:baby_duck_grammarParser.Term_helperContext):
         pass
 
 
