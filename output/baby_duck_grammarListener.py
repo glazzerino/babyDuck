@@ -17,6 +17,15 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by baby_duck_grammarParser#program_post_var.
+    def enterProgram_post_var(self, ctx:baby_duck_grammarParser.Program_post_varContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#program_post_var.
+    def exitProgram_post_var(self, ctx:baby_duck_grammarParser.Program_post_varContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#body.
     def enterBody(self, ctx:baby_duck_grammarParser.BodyContext):
         pass

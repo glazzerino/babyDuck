@@ -6,13 +6,15 @@ WS: [ \t\r\n]+ -> skip;
 FLOAT: [0-9]+ '.' [0-9]+;
 STRING: '"' .*? '"';
 
-program: 'program' ID ';' vars? funcs* 'main' body 'end';
+program: 'program' ID ';' vars? program_post_var;
+
+program_post_var: funcs* 'main' body 'end';
 
 body: '{' statement* '}';
 
 statement: assign | condition | cycle | f_call | print;
 
-type: 'int' | 'float';
+type: 'int' | 'float' | 'bool' | 'void';
 
 assign: ID '=' expression ';';
 
@@ -32,7 +34,7 @@ f_param_list: (f_param_list_helper (',' f_param_list_helper)*)?;
 
 f_param_list_helper: (ID ':' type);
 
-funcs: 'void' ID '(' f_param_list ')' '[' vars? body ']' ';';
+funcs: type ID '(' f_param_list ')' '[' vars? body ']' ';';
 
 vars: 'var' vars_declarations+;
 
