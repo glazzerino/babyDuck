@@ -3,7 +3,7 @@ var
     foo: int; 
     bar, foobar, barfoo: float;
 
-void patoFunction() [
+void patoFunction(pato:int) [
     var patito, patita: int;
     {}];
     void empty() [

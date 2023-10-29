@@ -39,7 +39,6 @@ class VariableTable:
         print("-" * len(header))
 
 
-
 @dataclass(frozen=True)
 class FunctionID:
     name: str
@@ -52,7 +51,6 @@ class FunctionID:
         if not isinstance(other, FunctionID):
             return False
         return self.name == other.name and self.type == other.type
-
 
 class FunctionTable:
     def __init__(self):
@@ -83,7 +81,8 @@ class FunctionTable:
 class Listener(baby_duck_grammarListener):
     def __init__(self, function_table: FunctionTable):
         self.function_table = function_table
-        self.var_stack = []
+        self.variable_buffer = []
+
     def enterProgram(self, ctx: baby_duck_grammarParser.ProgramContext):
         return super().enterProgram(ctx)
 
@@ -91,19 +90,26 @@ class Listener(baby_duck_grammarListener):
         return super().exitProgram(ctx)
 
     def enterProgram_post_var(self, ctx: baby_duck_grammarParser.Program_post_varContext):
-        for id, type in self.var_stack:
+        for id, type in self.variable_buffer:
             self.function_table.insert_to_top(id, type)
         return super().enterProgram_post_var(ctx)
     def enterFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
-        self.var_stack = []
+        self.variable_buffer = []
         return super().enterFuncs(ctx)
 
     def exitFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
         function_id = FunctionID(ctx.ID().getText(), ctx.type_().getText())
         self.function_table.insert_new_function(function_id)
-        for var_id, var_type in self.var_stack:
+        for var_id, var_type in self.variable_buffer:
             self.function_table.insert_to_top(var_id, var_type)
         return super().exitFuncs(ctx)
+
+    def exitF_param_list(self, ctx: baby_duck_grammarParser.F_param_listContext):
+        for param in ctx.f_param_list_helper():
+            var_id = param.ID().getText()
+            var_type = param.type_().getText()
+            self.variable_buffer.append((var_id, var_type))
+        return super().exitF_param_list(ctx)
 
     def exitVars_declarations(
         self, ctx: baby_duck_grammarParser.Vars_declarationsContext
@@ -112,7 +118,7 @@ class Listener(baby_duck_grammarListener):
     
         for id in ctx.ID():
             id_text = id.getText()
-            self.var_stack.append((id_text, var_type)) 
+            self.variable_buffer.append((id_text, var_type)) 
         return super().exitVars_declarations(ctx)
 
     def exitExpression(self, ctx: baby_duck_grammarParser.ExpressionContext):
