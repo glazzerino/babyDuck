@@ -12,6 +12,8 @@ class VariableTable:
         self.table = {}
 
     def insert(self, var_id, var_type, value=None):
+        if var_id in self.table:
+            raise Exception("Variable already declared")
         self.table[var_id] = {"type": var_type, "value": value}
 
     def get(self, var_id) -> dict:

@@ -3,12 +3,11 @@ var
     foo: int; 
     bar, foobar, barfoo: float;
 
-void newFunction() [
-    var patito: int;
+void patoFunction() [
+    var patito, patita: int;
     {}];
     void empty() [
     {}];
-
 void emptyFunction2(floatNumber: float, intNumber: int) [
     var 
         number1: int;
