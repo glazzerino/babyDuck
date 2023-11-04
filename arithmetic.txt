@@ -1,0 +1,15 @@
+program Arithmetic;
+
+var
+  a, b, c: int;
+
+main {
+    a = 1;
+    b = 2;
+    c = a + b;
+    d = 2/(c - -a);
+    e = 2/ c - -a;
+    print(c);
+}
+
+end

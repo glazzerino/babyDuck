@@ -1,83 +1,14 @@
-from dataclasses import dataclass
 import sys
 from antlr4 import *
 from output.baby_duck_grammarLexer import baby_duck_grammarLexer
 from output.baby_duck_grammarParser import baby_duck_grammarParser
-
+from Quadruple import Quadruple
 from output.baby_duck_grammarListener import baby_duck_grammarListener
+from tables import FunctionID, FunctionTable, VariableTable
+from output.baby_duck_grammarVisitor import baby_duck_grammarVisitor
+import antlr4
 
 
-class VariableTable:
-    def __init__(self):
-        self.table = {}
-
-    def insert(self, var_id, var_type, value=None):
-        if var_id in self.table:
-            raise Exception("Variable already declared")
-        self.table[var_id] = {"type": var_type, "value": value}
-
-    def get(self, var_id) -> dict:
-        return self.table.get(var_id, None)
-
-    def print(self):
-        if not self.table:
-            print("Empty Symbol Table")
-            return
-
-        header = "| {:<15} | {:<10} | {:<10} |".format("Variable", "Type", "Value")
-        print("-" * len(header))
-        print(header)
-        print("-" * len(header))
-
-        for var_id, details in self.table.items():
-            row = "| {:<15} | {:<10} | {:<10} |".format(
-                var_id,
-                details["type"],
-                str(details["value"]) if details["value"] is not None else "N/A",
-            )
-            print(row)
-        print("-" * len(header))
-
-
-@dataclass(frozen=True)
-class FunctionID:
-    name: str
-    type: str
-
-    def __hash__(self):
-        return hash((self.name, self.type))
-
-    def __eq__(self, other):
-        if not isinstance(other, FunctionID):
-            return False
-        return self.name == other.name and self.type == other.type
-
-class FunctionTable:
-    def __init__(self):
-        self.table = {}
-        self.active_function = None
-
-    def get(self, func_id: FunctionID) -> VariableTable:
-        return self.table.get(func_id, None)
-
-    def insert_to_top(self, var_id, var_type, value=None):
-        self.table[self.active_function].insert(var_id, var_type, value)
-    
-    def insert_new_function(self, func_id: FunctionID):
-        if func_id in self.table:
-            raise Exception("Function already declared")
-        self.table[func_id] = VariableTable()
-        self.active_function = func_id
-    
-    def get_active_function_table(self) -> VariableTable:
-        return self.table[self.active_function]
-    
-    def print_all(self):
-        for func_id, var_table in self.table.items():
-            print("Function: ", func_id.name, func_id.type)
-            var_table.print()
-            print("\n")
-    
 class Listener(baby_duck_grammarListener):
     def __init__(self, function_table: FunctionTable):
         self.function_table = function_table
@@ -89,13 +20,34 @@ class Listener(baby_duck_grammarListener):
     def exitProgram(self, ctx: baby_duck_grammarParser.ProgramContext):
         return super().exitProgram(ctx)
 
-    def enterProgram_post_var(self, ctx: baby_duck_grammarParser.Program_post_varContext):
+    def enterProgram_post_var(
+        self, ctx: baby_duck_grammarParser.Program_post_varContext
+    ):
         for id, type in self.variable_buffer:
             self.function_table.insert_to_top(id, type)
         return super().enterProgram_post_var(ctx)
+
     def enterFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
         self.variable_buffer = []
         return super().enterFuncs(ctx)
+
+    def binary_op_quadruple(self, ctx):
+        if ctx.getChildCount() == 3:
+            left_operand = ctx.getChild(0)
+            operator = ctx.getChild(1)
+            right_operand = ctx.getChild(2)
+            print(left_operand.getText(), operator.getText(), right_operand.getText())
+
+            result_temp = self.new_temporary()
+
+            quad = Quadruple(
+                left_operand=left_operand.getText(),
+                operator=operator.getText(),
+                right_operand=right_operand.getText(),
+                result=result_temp,
+            )
+            self.quadruples.append(quad)
+            print("Generated Quadruple: ", quad)
 
     def exitFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
         function_id = FunctionID(ctx.ID().getText(), ctx.type_().getText())
@@ -113,16 +65,158 @@ class Listener(baby_duck_grammarListener):
 
     def exitVars_declarations(
         self, ctx: baby_duck_grammarParser.Vars_declarationsContext
-    ):     
+    ):
         var_type = ctx.type_().getText()
-    
+
         for id in ctx.ID():
             id_text = id.getText()
-            self.variable_buffer.append((id_text, var_type)) 
+            self.variable_buffer.append((id_text, var_type))
         return super().exitVars_declarations(ctx)
 
-    def exitExpression(self, ctx: baby_duck_grammarParser.ExpressionContext):
-        return super().exitExpression(ctx)
+    def new_temporary(self):
+        name = f"t{self.temp_counter}"
+        self.temp_counter += 1
+        return name
+
+
+def determine_type(ctx):
+    if ctx.ID():
+        return "VAR"
+    if ctx.cte():
+        return "CTE"
+
+
+class Visitor(baby_duck_grammarVisitor):
+    def __init__(self):
+        self.temp_counter = 0
+        self.quadruples = []
+        self.operand_stack = []
+        self.operator_stack = []
+        self.type_stack = []
+        self.jump_stack = []
+        self.quadruples = []
+        self.temp_counter = 0
+        self.quadruples = []
+        self.precedence = {
+            "(": 1,
+            "+": 2,
+            "-": 2,
+            "*": 3,
+            "/": 3,
+        }
+
+    def visitFactor(self, ctx: baby_duck_grammarParser.FactorContext):
+        if ctx.parenthesized_expression():
+            # A parenthesized expression should be evaluated on its own terms.
+            return self.visit(ctx.parenthesized_expression())
+        else:
+            unary_op = None
+
+            if ctx.factor_operator():  # If there is a unary operator present
+                unary_op = ctx.factor_operator().getText()
+                operand = ctx.getChild(1).getText()  # The operand follows the unary operator
+            else:
+                operand = ctx.getChild(0).getText()  # Just a simple ID or cte
+
+            # If there's a unary operator, handle the operation
+            if unary_op:
+                temp_var = self.new_temporary()
+                # Generate a quadruple for the unary operation
+                self.generate_quadruple(unary_op, operand, None, temp_var)
+                # Push the result of the unary operation onto the operand stack
+                self.operand_stack.append(temp_var)
+            else:
+                # Push the operand onto the operand stack
+                self.operand_stack.append(operand)
+
+        return self.operand_stack[-1] if self.operand_stack else None
+
+
+    def generate_quadruple(self, operator, left_operand, right_operand, result):
+        quad = Quadruple(
+            operator=operator,
+            left_operand=left_operand,
+            right_operand=right_operand,
+            result=result,
+        )
+        self.quadruples.append(quad)
+
+    def new_temporary(self):
+        name = f"t{self.temp_counter}"
+        self.temp_counter += 1
+        return name
+
+    def visitParenthesized_expression(self, ctx: baby_duck_grammarParser.Parenthesized_expressionContext):
+        return self.visit(ctx.expression())
+
+    def visitExpression(self, ctx: baby_duck_grammarParser.ExpressionContext):
+        if ctx.getChildCount() == 1:
+            return self.visit(ctx.exp(0))
+
+        elif ctx.getChildCount() == 3:
+            lhs_result = self.visit(ctx.exp(0))
+            rhs_result = self.visit(ctx.exp(1))
+            
+            rel_op = ctx.rel_op().getText()
+            
+            temp_var = self.new_temporary()
+
+            self.generate_quadruple(rel_op, lhs_result, rhs_result, temp_var)
+
+            self.operand_stack.append(temp_var)
+            
+            return temp_var
+        else:
+            raise Exception("Unsupported expression structure")
+
+
+    def print_all(self):
+        for quad in self.quadruples:
+            print(quad)
+        print(self.operand_stack)
+    
+    def visitExp(self, ctx: baby_duck_grammarParser.ExpContext):
+    # Assume the first term is always present and visit it
+        result = self.visit(ctx.term(0))
+
+        # Now, process all subsequent terms with their preceding operators
+        for i in range(1, len(ctx.term())):
+            operator = ctx.operator(i-1).getText()  # The operator between terms
+            right = self.visit(ctx.term(i))  # The right operand (term)
+
+            # Generate a quadruple if there is a valid right operand
+            if right is not None:
+                result_temp = self.new_temporary()
+
+                # Generate a quadruple for the operation
+                self.generate_quadruple(operator, result, right, result_temp)
+
+                # The result of this operation becomes the 'result' for the next operation
+                result = result_temp
+
+        return result
+
+    def visitTerm(self, ctx: baby_duck_grammarParser.TermContext):
+        # This assumes the first factor is always present (based on the grammar)
+        result = self.visit(ctx.factor(0))
+
+        # Now, process all subsequent factors
+        for i in range(1, len(ctx.factor())):
+            operator = ctx.getChild(2 * i - 1).getText()  
+            right = self.visit(ctx.factor(i))  
+
+            if right is not None:
+                result_temp = self.new_temporary()
+
+                # Generate a quadruple for the operation
+                self.generate_quadruple(operator, result, right, result_temp)
+
+                # The result of this operation will be used as the left operand
+                # for the next operation (if any)
+                result = result_temp
+
+        return result
+
 
 
 def main(argv):
@@ -131,12 +225,15 @@ def main(argv):
     stream = CommonTokenStream(lexer)
     parser = baby_duck_grammarParser(stream)
     function_table = FunctionTable()
-    function_table.insert_new_function(FunctionID("global", "void"))    
+    function_table.insert_new_function(FunctionID("global", "void"))
     parser.addParseListener(Listener(function_table))
     tree = parser.program()
+    # function_table.print_all()
     print("parsing complete")
-    function_table.print_all()
-
+    print("Visitor start")
+    visitor = Visitor()
+    visitor.visit(tree)
+    visitor.print_all()
 
 
 if __name__ == "__main__":

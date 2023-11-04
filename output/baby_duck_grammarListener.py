@@ -89,15 +89,6 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by baby_duck_grammarParser#exp.
-    def enterExp(self, ctx:baby_duck_grammarParser.ExpContext):
-        pass
-
-    # Exit a parse tree produced by baby_duck_grammarParser#exp.
-    def exitExp(self, ctx:baby_duck_grammarParser.ExpContext):
-        pass
-
-
     # Enter a parse tree produced by baby_duck_grammarParser#print.
     def enterPrint(self, ctx:baby_duck_grammarParser.PrintContext):
         pass
@@ -188,6 +179,24 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by baby_duck_grammarParser#operator.
+    def enterOperator(self, ctx:baby_duck_grammarParser.OperatorContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#operator.
+    def exitOperator(self, ctx:baby_duck_grammarParser.OperatorContext):
+        pass
+
+
+    # Enter a parse tree produced by baby_duck_grammarParser#exp.
+    def enterExp(self, ctx:baby_duck_grammarParser.ExpContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#exp.
+    def exitExp(self, ctx:baby_duck_grammarParser.ExpContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#term.
     def enterTerm(self, ctx:baby_duck_grammarParser.TermContext):
         pass
@@ -197,12 +206,39 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by baby_duck_grammarParser#term_operator.
+    def enterTerm_operator(self, ctx:baby_duck_grammarParser.Term_operatorContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#term_operator.
+    def exitTerm_operator(self, ctx:baby_duck_grammarParser.Term_operatorContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#factor.
     def enterFactor(self, ctx:baby_duck_grammarParser.FactorContext):
         pass
 
     # Exit a parse tree produced by baby_duck_grammarParser#factor.
     def exitFactor(self, ctx:baby_duck_grammarParser.FactorContext):
+        pass
+
+
+    # Enter a parse tree produced by baby_duck_grammarParser#factor_operator.
+    def enterFactor_operator(self, ctx:baby_duck_grammarParser.Factor_operatorContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#factor_operator.
+    def exitFactor_operator(self, ctx:baby_duck_grammarParser.Factor_operatorContext):
+        pass
+
+
+    # Enter a parse tree produced by baby_duck_grammarParser#parenthesized_expression.
+    def enterParenthesized_expression(self, ctx:baby_duck_grammarParser.Parenthesized_expressionContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#parenthesized_expression.
+    def exitParenthesized_expression(self, ctx:baby_duck_grammarParser.Parenthesized_expressionContext):
         pass
 
 

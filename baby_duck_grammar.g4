@@ -24,8 +24,6 @@ rel_op: '<' | '>' | '!=';
 
 cte: INT | FLOAT;
 
-exp: term (('+' | '-') term)*;
-
 print: 'print' '(' print_helper? ')' ';';
 
 print_helper: (expression | STRING) (',' (expression | STRING))*;
@@ -45,10 +43,19 @@ cycle: 'while' body 'do' '(' expression ')' ';';
 condition: 'if' '(' expression ')' body condition_else? ';';
 
 condition_else: 'else' body;
+operator: ('+' | '-');
 
-term: factor (('*' | '/') factor)?;
+exp: term (operator term)*;
 
-factor: '(' expression ')' | (('+' | '-')? (ID | cte));
+term: factor (term_operator factor)?;
+
+term_operator: ('*' | '/');
+
+factor: parenthesized_expression | (factor_operator? (ID | cte));
+
+factor_operator: ('+' | '-');
+
+parenthesized_expression: '(' expression ')';
 
 f_call: ID '(' f_call_helper? ')' ';';
 
