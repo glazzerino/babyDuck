@@ -94,6 +94,11 @@ class baby_duck_grammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by baby_duck_grammarParser#while_keyword.
+    def visitWhile_keyword(self, ctx:baby_duck_grammarParser.While_keywordContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by baby_duck_grammarParser#condition.
     def visitCondition(self, ctx:baby_duck_grammarParser.ConditionContext):
         return self.visitChildren(ctx)

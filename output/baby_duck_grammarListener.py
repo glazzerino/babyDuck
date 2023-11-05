@@ -161,6 +161,15 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by baby_duck_grammarParser#while_keyword.
+    def enterWhile_keyword(self, ctx:baby_duck_grammarParser.While_keywordContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#while_keyword.
+    def exitWhile_keyword(self, ctx:baby_duck_grammarParser.While_keywordContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#condition.
     def enterCondition(self, ctx:baby_duck_grammarParser.ConditionContext):
         pass

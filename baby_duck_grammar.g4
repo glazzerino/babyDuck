@@ -38,11 +38,14 @@ vars: 'var' vars_declarations+;
 
 vars_declarations: (ID (',' ID)* ':' type ';');
 
-cycle: 'while' body 'do' '(' expression ')' ';';
+cycle:  while_keyword body 'do' '(' expression ')' ';';
+
+while_keyword: 'while';
 
 condition: 'if' '(' expression ')' body condition_else? ';';
 
 condition_else: 'else' body;
+
 operator: ('+' | '-');
 
 exp: term (operator term)*;

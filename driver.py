@@ -6,7 +6,6 @@ from Quadruple import Quadruple
 from output.baby_duck_grammarListener import baby_duck_grammarListener
 from tables import FunctionID, FunctionTable, VariableTable
 from output.baby_duck_grammarVisitor import baby_duck_grammarVisitor
-import antlr4
 
 
 class Listener(baby_duck_grammarListener):
@@ -96,14 +95,8 @@ class Visitor(baby_duck_grammarVisitor):
         self.jump_stack = []
         self.quadruples = []
         self.temp_counter = 0
+        self.label_counter = 0
         self.quadruples = []
-        self.precedence = {
-            "(": 1,
-            "+": 2,
-            "-": 2,
-            "*": 3,
-            "/": 3,
-        }
 
     def visitFactor(self, ctx: baby_duck_grammarParser.FactorContext):
         if ctx.parenthesized_expression():
@@ -114,7 +107,9 @@ class Visitor(baby_duck_grammarVisitor):
 
             if ctx.factor_operator():  # If there is a unary operator present
                 unary_op = ctx.factor_operator().getText()
-                operand = ctx.getChild(1).getText()  # The operand follows the unary operator
+                operand = ctx.getChild(
+                    1
+                ).getText()  # The operand follows the unary operator
             else:
                 operand = ctx.getChild(0).getText()  # Just a simple ID or cte
 
@@ -131,8 +126,7 @@ class Visitor(baby_duck_grammarVisitor):
 
         return self.operand_stack[-1] if self.operand_stack else None
 
-
-    def generate_quadruple(self, operator, left_operand, right_operand, result):
+    def generate_quadruple(self, operator, left_operand, right_operand, result) -> int:
         quad = Quadruple(
             operator=operator,
             left_operand=left_operand,
@@ -140,13 +134,16 @@ class Visitor(baby_duck_grammarVisitor):
             result=result,
         )
         self.quadruples.append(quad)
+        return len(self.quadruples) - 1
 
     def new_temporary(self):
         name = f"t{self.temp_counter}"
         self.temp_counter += 1
         return name
 
-    def visitParenthesized_expression(self, ctx: baby_duck_grammarParser.Parenthesized_expressionContext):
+    def visitParenthesized_expression(
+        self, ctx: baby_duck_grammarParser.Parenthesized_expressionContext
+    ):
         return self.visit(ctx.expression())
 
     def visitExpression(self, ctx: baby_duck_grammarParser.ExpressionContext):
@@ -156,32 +153,123 @@ class Visitor(baby_duck_grammarVisitor):
         elif ctx.getChildCount() == 3:
             lhs_result = self.visit(ctx.exp(0))
             rhs_result = self.visit(ctx.exp(1))
-            
+
             rel_op = ctx.rel_op().getText()
-            
+
             temp_var = self.new_temporary()
 
             self.generate_quadruple(rel_op, lhs_result, rhs_result, temp_var)
 
             self.operand_stack.append(temp_var)
-            
+
             return temp_var
         else:
             raise Exception("Unsupported expression structure")
+
+    def visitF_call(self, ctx: baby_duck_grammarParser.F_callContext):
+        function_name = ctx.ID().getText()
+        arg_count = 0
+        # Check if there are arguments
+        if ctx.f_call_helper() and ctx.f_call_helper().expression():
+            arg_count = len(ctx.f_call_helper().expression())
+
+            for arg in ctx.f_call_helper().expression():
+                arg_result = self.visit(arg)
+                self.generate_quadruple("param", arg_result, None, None)
+
+        self.generate_quadruple("call", function_name, arg_count, None)
+        return None
+
+    # helper that genertes a new label for later jumpback
+    def new_label(self):
+        label = f"L{self.label_counter}"
+        self.label_counter += 1
+        return label
+
+    def new_placeholder(self):
+        placeholder = f"P{self.label_counter}"
+        self.label_counter += 1
+        return placeholder
+    
+    def visitCondition(self, ctx: baby_duck_grammarParser.ConditionContext):
+        condition = self.visit(ctx.expression())
+
+        false_placeholder = self.new_placeholder()
+
+        self.jump_stack.append(("if_false", false_placeholder))
+        false_jump_index = self.generate_quadruple("if_false", condition, None, false_placeholder)
+        
+        self.visit(ctx.body())
+
+        end_if_placeholder = None
+
+        if ctx.condition_else():
+            end_if_placeholder = self.new_placeholder()
+            self.jump_stack.append(("goto_end_if", end_if_placeholder))
+            end_if_index = self.generate_quadruple("goto", None, None, end_if_placeholder)
+        
+        false_jump_label = self.new_label()
+        self.backpatch(false_jump_index, false_jump_label)
+        self.jump_stack.pop()
+
+        if ctx.condition_else():
+            self.visit(ctx.condition_else())
+            end_if_label = self.new_label()
+            self.backpatch(end_if_index, end_if_label)
+            self.jump_stack.pop()
+        
+        if not ctx.condition_else():
+            self.generate_quadruple("label", false_jump_label, None, None) 
+        if end_if_placeholder:
+            self.generate_quadruple("label", end_if_label, None, None)
+        return None
+
+    def backpatch(self, placeolder: str, label: str):
+        for i, quad in enumerate(self.quadruples):
+            if quad.result == placeolder:
+                self.quadruples[i].result = label
+
+
+    def visitCycle(self, ctx: baby_duck_grammarParser.CycleContext):
+        start_label = self.new_label()
+        self.jump_stack.append(('start', start_label))
+        self.generate_quadruple("label", start_label, None, None)
+
+        condition_result = self.visit(ctx.expression())
+        exit_label_placeholder = self.new_placeholder()
+        self.jump_stack.append(('end', exit_label_placeholder))
+        exit_index = self.generate_quadruple(
+            "if_false", condition_result, None, exit_label_placeholder
+        )
+
+        self.visit(ctx.body())
+
+        self.generate_quadruple("goto", start_label, None, None)
+
+        end_label = self.new_label()
+        self.generate_quadruple("label", end_label, None, None)
+
+        self.backpatch(exit_index, end_label)
+
+        while self.jump_stack and self.jump_stack[-1][0] == 'end':
+            label_type, placeholder = self.jump_stack.pop()
+            self.backpatch(placeholder, end_label)
+
+        return None
 
 
     def print_all(self):
         for quad in self.quadruples:
             print(quad)
         print(self.operand_stack)
-    
+
     def visitExp(self, ctx: baby_duck_grammarParser.ExpContext):
-    # Assume the first term is always present and visit it
+        # Assume the first term is always present and visit it
         result = self.visit(ctx.term(0))
 
         # Now, process all subsequent terms with their preceding operators
         for i in range(1, len(ctx.term())):
-            operator = ctx.operator(i-1).getText()  # The operator between terms
+            operator = ctx.operator(i - 1).getText()  # The operator between terms
             right = self.visit(ctx.term(i))  # The right operand (term)
 
             # Generate a quadruple if there is a valid right operand
@@ -202,8 +290,8 @@ class Visitor(baby_duck_grammarVisitor):
 
         # Now, process all subsequent factors
         for i in range(1, len(ctx.factor())):
-            operator = ctx.getChild(2 * i - 1).getText()  
-            right = self.visit(ctx.factor(i))  
+            operator = ctx.getChild(2 * i - 1).getText()
+            right = self.visit(ctx.factor(i))
 
             if right is not None:
                 result_temp = self.new_temporary()
@@ -217,6 +305,27 @@ class Visitor(baby_duck_grammarVisitor):
 
         return result
 
+    def visitPrint(self, ctx: baby_duck_grammarParser.PrintContext):
+        if ctx.print_helper():
+            print_items = ctx.print_helper()
+            for item in print_items.expression():
+                item_result = self.visit(item)
+
+                self.generate_quadruple("print", item_result, None, None)
+            self.generate_quadruple("print_newline", None, None, None)
+        else:
+            self.generate_quadruple("print_newline", None, None, None)
+
+        return None
+
+    def visitAssign(self, ctx: baby_duck_grammarParser.AssignContext):
+        # get right hand side
+        right = self.visit(ctx.expression())
+        # get left hand side
+        left = ctx.ID().getText()
+        # generate quadruple
+        self.generate_quadruple("=", right, None, left)
+        return None
 
 
 def main(argv):

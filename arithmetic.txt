@@ -1,7 +1,7 @@
 program Arithmetic;
 
 var
-  a, b, c: int;
+  a, b, c, d: int;
 
 main {
     a = 1;
