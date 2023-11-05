@@ -113,7 +113,7 @@ class Visitor(baby_duck_grammarVisitor):
             else:
                 operand = ctx.getChild(0).getText()  # Just a simple ID or cte
 
-            # If there's a unary operator, handle the operation
+            # If there"s a unary operator, handle the operation
             if unary_op:
                 temp_var = self.new_temporary()
                 # Generate a quadruple for the unary operation
@@ -232,12 +232,12 @@ class Visitor(baby_duck_grammarVisitor):
 
     def visitCycle(self, ctx: baby_duck_grammarParser.CycleContext):
         start_label = self.new_label()
-        self.jump_stack.append(('start', start_label))
+        self.jump_stack.append(("start", start_label))
         self.generate_quadruple("label", start_label, None, None)
 
         condition_result = self.visit(ctx.expression())
         exit_label_placeholder = self.new_placeholder()
-        self.jump_stack.append(('end', exit_label_placeholder))
+        self.jump_stack.append(("end", exit_label_placeholder))
         exit_index = self.generate_quadruple(
             "if_false", condition_result, None, exit_label_placeholder
         )
@@ -251,7 +251,7 @@ class Visitor(baby_duck_grammarVisitor):
 
         self.backpatch(exit_index, end_label)
 
-        while self.jump_stack and self.jump_stack[-1][0] == 'end':
+        while self.jump_stack and self.jump_stack[-1][0] == "end":
             label_type, placeholder = self.jump_stack.pop()
             self.backpatch(placeholder, end_label)
 
@@ -279,7 +279,7 @@ class Visitor(baby_duck_grammarVisitor):
                 # Generate a quadruple for the operation
                 self.generate_quadruple(operator, result, right, result_temp)
 
-                # The result of this operation becomes the 'result' for the next operation
+                # The result of this operation becomes the "result" for the next operation
                 result = result_temp
 
         return result
