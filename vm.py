@@ -23,11 +23,17 @@ class VirtualMachine:
         if self.is_identifier(operand):
             return self.memory.get()
         return parse_string(operand)
-
-    def preprocess_quads(self, quads):
-        for quad in quads:
-            left = quad.left_operand
-            right = quad.right_operand
-
+        
     def is_identifier(self, operand) -> bool:
         return operand[0] == "$"
+    
+    def execute(self, quad: Quadruple):
+        if quad.operator == Operator.PLUS:
+            self.add(quad)
+
+    def run(self):
+        while self.pc < len(self.quads):
+            quad = self.quads[self.pc]
+            self.execute(quad)
+            self.pc += 1
+        self.memory.print()

@@ -7,8 +7,15 @@ from output.baby_duck_grammarListener import baby_duck_grammarListener
 from output.baby_duck_grammarVisitor import baby_duck_grammarVisitor
 from mem_tables import MemoryTable, FunctionID, Value
 from vm import VirtualMachine
-from SemanticCube import Operator, Type, baby_duck_type_to_enum, parse_operator
- 
+from SemanticCube import (
+    Operator,
+    Type,
+    baby_duck_type_to_enum,
+    parse_operator,
+    parse_string,
+)
+
+
 class Listener(baby_duck_grammarListener):
     def __init__(self, memory_table: MemoryTable):
         self.memory_table = memory_table
@@ -20,7 +27,7 @@ class Listener(baby_duck_grammarListener):
             variable_value = Value(baby_duck_type_to_enum(var_type), None)
             self.memory_table[function_id]["$" + var_id] = variable_value
         self.variable_buffer = []
-        
+
     def enterProgram(self, ctx: baby_duck_grammarParser.ProgramContext):
         self.function_id_stack.append(FunctionID("global", "void"))
         self.memory_table[FunctionID("global", "void")] = {}
@@ -33,19 +40,19 @@ class Listener(baby_duck_grammarListener):
         self, ctx: baby_duck_grammarParser.Program_post_varContext
     ):
         current_function_id = self.function_id_stack.pop()
-        
+
         self.save_vars_to_memory(current_function_id)
         return super().enterProgram_post_var(ctx)
 
     def enterFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
         self.variable_buffer = []
         return super().enterFuncs(ctx)
-    
+
     def exitFunction_id(self, ctx: baby_duck_grammarParser.Function_idContext):
         function_id = FunctionID(ctx.ID().getText(), ctx.type_().getText())
         self.function_id_stack.append(function_id)
         return super().exitFunction_id(ctx)
-    
+
     def exitFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
         current_function = self.function_id_stack.pop()
         self.memory_table[current_function] = {}
@@ -70,7 +77,6 @@ class Listener(baby_duck_grammarListener):
             id_text = id.getText()
             self.variable_buffer.append((id_text, var_type))
         return super().exitVars_declarations(ctx)
-
 
 
 def determine_type(ctx):
@@ -141,13 +147,13 @@ class Visitor(baby_duck_grammarVisitor):
 
     def visitExpression(self, ctx: baby_duck_grammarParser.ExpressionContext):
         left = self.visit(ctx.exp())
-        if (ctx.getChildCount() != 1):
+        if ctx.getChildCount() != 1:
             operator = ctx.rel_op().getText()
             right = self.visit(ctx.getChild(2))
             temp_var = self.new_temporary()
             self.generate_quadruple(operator, left, right, temp_var)
             return temp_var
-        
+
         return left
         # elif ctx.getChildCount() == 3:
         #     lhs_result = self.visit(ctx.exp(0))
@@ -189,15 +195,17 @@ class Visitor(baby_duck_grammarVisitor):
         placeholder = f"P{self.label_counter}"
         self.label_counter += 1
         return placeholder
-    
+
     def visitCondition(self, ctx: baby_duck_grammarParser.ConditionContext):
         condition = self.visit(ctx.expression())
 
         false_placeholder = self.new_placeholder()
 
         self.jump_stack.append(("if_false", false_placeholder))
-        false_jump_index = self.generate_quadruple("if_false", condition, None, false_placeholder)
-        
+        false_jump_index = self.generate_quadruple(
+            "if_false", condition, None, false_placeholder
+        )
+
         self.visit(ctx.body())
 
         end_if_placeholder = None
@@ -205,8 +213,10 @@ class Visitor(baby_duck_grammarVisitor):
         if ctx.condition_else():
             end_if_placeholder = self.new_placeholder()
             self.jump_stack.append(("goto_end_if", end_if_placeholder))
-            end_if_index = self.generate_quadruple("goto", None, None, end_if_placeholder)
-        
+            end_if_index = self.generate_quadruple(
+                "goto", None, None, end_if_placeholder
+            )
+
         false_jump_label = self.new_label()
         self.backpatch(false_jump_index, false_jump_label)
         self.jump_stack.pop()
@@ -216,9 +226,9 @@ class Visitor(baby_duck_grammarVisitor):
             end_if_label = self.new_label()
             self.backpatch(end_if_index, end_if_label)
             self.jump_stack.pop()
-        
+
         if not ctx.condition_else():
-            self.generate_quadruple("label", false_jump_label, None, None) 
+            self.generate_quadruple("label", false_jump_label, None, None)
         if end_if_placeholder:
             self.generate_quadruple("label", end_if_label, None, None)
         return None
@@ -227,7 +237,6 @@ class Visitor(baby_duck_grammarVisitor):
         for i, quad in enumerate(self.quadruples):
             if quad.result == placeolder:
                 self.quadruples[i].result = label
-
 
     def visitCycle(self, ctx: baby_duck_grammarParser.CycleContext):
         start_label = self.new_label()
@@ -256,7 +265,6 @@ class Visitor(baby_duck_grammarVisitor):
 
         return None
 
-
     def print_all(self):
         for quad in self.quadruples:
             print(quad)
@@ -265,8 +273,8 @@ class Visitor(baby_duck_grammarVisitor):
     def visitExp(self, ctx: baby_duck_grammarParser.ExpContext):
         # Assume the first term is always present and visit it
         result = self.visit(ctx.term())
-        
-        if (ctx.getChildCount() != 1):
+
+        if ctx.getChildCount() != 1:
             operator = ctx.operator().getText()
             right = self.visit(ctx.getChild(2))
             temp_var = self.new_temporary()
@@ -278,7 +286,7 @@ class Visitor(baby_duck_grammarVisitor):
     def visitTerm(self, ctx: baby_duck_grammarParser.TermContext):
         # This assumes the first factor is always present (based on the grammar)
         left = self.visit(ctx.factor())
-        if (ctx.getChildCount() != 1):
+        if ctx.getChildCount() != 1:
             operator = ctx.term_operator().getText()
             right = self.visit(ctx.term())
             temp_var = self.new_temporary()
@@ -309,6 +317,19 @@ class Visitor(baby_duck_grammarVisitor):
         return None
 
 
+def preprocess_quads(quads):
+    new_quads = []
+    for quad in quads:
+        left = parse_string(quad.left_operand)
+        right = parse_string(quad.right_operand)
+
+        quad.left = left
+        quad.right = right
+        print("{} {}", quad.right, type(quad.right))
+        print("{} {}", quad.left, type(quad.left))
+        new_quads.append(quad)
+    return new_quads
+
 def main(argv):
     input_stream = FileStream(argv[1])
     lexer = baby_duck_grammarLexer(input_stream)
@@ -321,8 +342,10 @@ def main(argv):
     visitor = Visitor()
     visitor.visit(tree)
     visitor.print_all()
-    # vm = VirtualMachine(visitor.quadruples, memory_table)
-    # vm.run()
-
+    new_quads = preprocess_quads(visitor.quadruples)
+    
+    for quad in new_quads:
+        print(quad)
+    
 if __name__ == "__main__":
     main(sys.argv)

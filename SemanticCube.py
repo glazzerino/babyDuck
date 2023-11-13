@@ -78,7 +78,9 @@ def parse_string_to_type(data_type: Type, data: str):
     else:
         raise Exception("Invalid data type: {}".format(data_type))
     
-def parse_string(data: str):
+def parse_string(data):
+    if data is None:
+        return None
     try:
         return int(data)
     except ValueError:
@@ -93,7 +95,7 @@ def parse_string(data: str):
         return False
     else:
         return data
-    
+
 def baby_duck_type_to_enum(baby_duck_type: str):
     if baby_duck_type == "int":
         return Type.INT
