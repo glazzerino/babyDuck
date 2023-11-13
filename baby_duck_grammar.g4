@@ -18,7 +18,7 @@ type: 'int' | 'float' | 'bool' | 'void';
 
 assign: ID '=' expression ';';
 
-expression: exp (rel_op exp)?;
+expression: exp (rel_op expression)?;
 
 rel_op: '<' | '>' | '!=';
 
@@ -48,9 +48,9 @@ condition_else: 'else' body;
 
 operator: ('+' | '-');
 
-exp: term (operator term)*;
+exp: term (operator exp)?;
 
-term: factor (term_operator factor)?;
+term: factor (term_operator term)?;
 
 term_operator: ('*' | '/');
 

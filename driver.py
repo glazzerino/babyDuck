@@ -113,12 +113,9 @@ class Visitor(baby_duck_grammarVisitor):
             else:
                 operand = ctx.getChild(0).getText()  # Just a simple ID or cte
 
-            # If there"s a unary operator, handle the operation
             if unary_op:
                 temp_var = self.new_temporary()
-                # Generate a quadruple for the unary operation
                 self.generate_quadruple(unary_op, operand, None, temp_var)
-                # Push the result of the unary operation onto the operand stack
                 self.operand_stack.append(temp_var)
             else:
                 # Push the operand onto the operand stack
@@ -147,24 +144,30 @@ class Visitor(baby_duck_grammarVisitor):
         return self.visit(ctx.expression())
 
     def visitExpression(self, ctx: baby_duck_grammarParser.ExpressionContext):
-        if ctx.getChildCount() == 1:
-            return self.visit(ctx.exp(0))
-
-        elif ctx.getChildCount() == 3:
-            lhs_result = self.visit(ctx.exp(0))
-            rhs_result = self.visit(ctx.exp(1))
-
-            rel_op = ctx.rel_op().getText()
-
+        left = self.visit(ctx.exp())
+        if (ctx.getChildCount() != 1):
+            operator = ctx.rel_op().getText()
+            right = self.visit(ctx.getChild(2))
             temp_var = self.new_temporary()
-
-            self.generate_quadruple(rel_op, lhs_result, rhs_result, temp_var)
-
-            self.operand_stack.append(temp_var)
-
+            self.generate_quadruple(operator, left, right, temp_var)
             return temp_var
-        else:
-            raise Exception("Unsupported expression structure")
+        
+        return left
+        # elif ctx.getChildCount() == 3:
+        #     lhs_result = self.visit(ctx.exp(0))
+        #     rhs_result = self.visit(ctx.exp(1))
+
+        #     rel_op = ctx.rel_op().getText()
+
+        #     temp_var = self.new_temporary()
+
+        #     self.generate_quadruple(rel_op, lhs_result, rhs_result, temp_var)
+
+        #     self.operand_stack.append(temp_var)
+
+        #     return temp_var
+        # else:
+        #     raise Exception("Unsupported expression structure")
 
     def visitF_call(self, ctx: baby_duck_grammarParser.F_callContext):
         function_name = ctx.ID().getText()
@@ -265,43 +268,58 @@ class Visitor(baby_duck_grammarVisitor):
 
     def visitExp(self, ctx: baby_duck_grammarParser.ExpContext):
         # Assume the first term is always present and visit it
-        result = self.visit(ctx.term(0))
+        result = self.visit(ctx.term())
+        
+        if (ctx.getChildCount() != 1):
+            operator = ctx.operator().getText()
+            right = self.visit(ctx.getChild(2))
+            temp_var = self.new_temporary()
+            self.generate_quadruple(operator, result, right, temp_var)
+            result = temp_var
+        
+        return result
 
         # Now, process all subsequent terms with their preceding operators
-        for i in range(1, len(ctx.term())):
-            operator = ctx.operator(i - 1).getText()  # The operator between terms
-            right = self.visit(ctx.term(i))  # The right operand (term)
+        # for i in range(1, len(ctx.term())):
+        #     operator = ctx.operator(i - 1).getText()  # The operator between terms
+        #     right = self.visit(ctx.term(i))  # The right operand (term)
 
-            # Generate a quadruple if there is a valid right operand
-            if right is not None:
-                result_temp = self.new_temporary()
+        #     # Generate a quadruple if there is a valid right operand
+        #     if right is not None:
+        #         result_temp = self.new_temporary()
 
-                # Generate a quadruple for the operation
-                self.generate_quadruple(operator, result, right, result_temp)
+        #         # Generate a quadruple for the operation
+        #         self.generate_quadruple(operator, result, right, result_temp)
 
-                # The result of this operation becomes the "result" for the next operation
-                result = result_temp
+        #         # The result of this operation becomes the "result" for the next operation
+        #         result = result_temp
 
         return result
 
     def visitTerm(self, ctx: baby_duck_grammarParser.TermContext):
         # This assumes the first factor is always present (based on the grammar)
-        result = self.visit(ctx.factor(0))
-
+        left = self.visit(ctx.factor())
+        if (ctx.getChildCount() != 1):
+            operator = ctx.term_operator().getText()
+            right = self.visit(ctx.term())
+            temp_var = self.new_temporary()
+            self.generate_quadruple(operator, left, right, temp_var)
+            return temp_var
+        return left
         # Now, process all subsequent factors
-        for i in range(1, len(ctx.factor())):
-            operator = ctx.getChild(2 * i - 1).getText()
-            right = self.visit(ctx.factor(i))
+        # for i in range(1, len(ctx.factor())):
+        #     operator = ctx.getChild(2 * i - 1).getText()
+        #     right = self.visit(ctx.factor(i))
 
-            if right is not None:
-                result_temp = self.new_temporary()
+        #     if right is not None:
+        #         result_temp = self.new_temporary()
 
-                # Generate a quadruple for the operation
-                self.generate_quadruple(operator, result, right, result_temp)
+        #         # Generate a quadruple for the operation
+        #         self.generate_quadruple(operator, result, right, result_temp)
 
-                # The result of this operation will be used as the left operand
-                # for the next operation (if any)
-                result = result_temp
+        #         # The result of this operation will be used as the left operand
+        #         # for the next operation (if any)
+        #         result = result_temp
 
         return result
 
