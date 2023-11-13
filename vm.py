@@ -14,9 +14,6 @@ Operand = Value
 
 
 class VirtualMachine:
-    # def parse_operator(self, operator):
-
-    # def is_id(self, operand):
     def __init__(self, quads, memory: MemoryTable):
         self.memory = memory
         self.quads = quads
@@ -35,12 +32,6 @@ class VirtualMachine:
     def is_identifier(self, operand) -> bool:
         return isinstance(operand, str) and operand[0] == "$"
 
-    def execute(self, quad: Quadruple):
-        if quad.operator == Operator.PLUS:
-            self.add(quad)
-        if quad.operator == Operator.ASSIGN:
-            self.assign(quad)
-        
     def run(self):
         while self.pc < len(self.quads):
             quad = self.quads[self.pc]
@@ -64,23 +55,75 @@ class VirtualMachine:
             parsed_token = parse_string(token)
             cte_type = python_type_to_enum(type(parsed_token))
             return Value(cte_type, parsed_token)
-        
+
+    def execute(self, quad: Quadruple):
+        if quad.operator == Operator.PLUS:
+            self.add(quad)
+        if quad.operator == Operator.ASSIGN:
+            self.assign(quad)
+        if quad.operator == Operator.PRINT:
+            self.print(quad)
+        if quad.operator == Operator.PRINT_NEWLINE:
+            self.print_newline(quad)
+        if quad.operator == Operator.MINUS:
+            self.substract(quad)
+        if quad.operator == Operator.TIMES:
+            self.multiply(quad)
+        if quad.operator == Operator.DIVIDE:
+            self.divide(quad)
+
+    def print(self, quad):
+        print("BabyDuck says: " + str(self.get_value(quad.left_operand).value), end="")
+
+    def print_newline(self, quad):
+        print()
+
     def assign(self, quad):
         target = quad.result
         value = quad.left_operand
         self.set(target, self.get_value(value))
 
-    def add(self, quad):
-        print("Adding {}".format(quad))
+    def divide(self, quad):
         left_operand = self.get_value(quad.left_operand)
         right_operand = self.get_value(quad.right_operand)
-        print("Values: {} {}".format(left_operand, right_operand))
         self.memory.print()
         result_type = get_result_type(
             left_operand.type, left_operand.type, quad.operator
         )
 
-        result_python = left_operand.value + right_operand.value
+        result_python = left_operand.value / right_operand.value
         result_value = Value(result_type, result_python)
         self.set(quad.result, result_value)
-        
+
+    def calculate(self, quad, operation):
+        left_operand = self.get_value(quad.left_operand)
+        right_operand = self.get_value(quad.right_operand)
+        self.memory.print()
+        result_type = get_result_type(
+            left_operand.type, left_operand.type, quad.operator
+        )
+
+        if operation == "add":
+            result_python = left_operand.value + right_operand.value
+        elif operation == "multiply":
+            result_python = left_operand.value * right_operand.value
+        elif operation == "divide":
+            result_python = left_operand.value / right_operand.value
+
+        result_value = Value(result_type, result_python)
+        self.set(quad.result, result_value)
+
+    def add(self, quad):
+        self.calculate(quad, "add")
+
+    def multiply(self, quad):
+        self.calculate(quad, "multiply")
+
+    def divide(self, quad):
+        self.calculate(quad, "divide")
+
+    def multiply(self, quad):
+        self.calculate(quad, "multiply")
+
+    def substract(self, quad):
+        self.calculate(quad, "substract")

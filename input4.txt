@@ -1,10 +1,13 @@
 program CompilerV1;
 
-var n1, n2: int;
+var n1, n2: int; f1: float;
 main 
 { 
     n1 = 1 + 1;
     n2 = n1 + 2;
+    print(n2);
+    f1 = 2.0 + 1.4;
+    print(f1);
 }
 
 end
