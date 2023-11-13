@@ -13,6 +13,7 @@ from SemanticCube import (
     baby_duck_type_to_enum,
     parse_operator,
     parse_string,
+    python_type_to_enum
 )
 
 
@@ -313,20 +314,21 @@ class Visitor(baby_duck_grammarVisitor):
         # get left hand side
         left = ctx.ID().getText()
         # generate quadruple
-        self.generate_quadruple("=", right, None, left)
+        self.generate_quadruple("=", right, None, "$" + left)
         return None
-
 
 def preprocess_quads(quads):
     new_quads = []
     for quad in quads:
         left = parse_string(quad.left_operand)
         right = parse_string(quad.right_operand)
+        if isinstance(left, str) and left[0] != "$":
+            left = "$" + left
+        if isinstance(right, str) and right[0] != "$":
+            right = "$" + right
 
-        quad.left = left
-        quad.right = right
-        print("{} {}", quad.right, type(quad.right))
-        print("{} {}", quad.left, type(quad.left))
+        quad.left_operand = left
+        quad.right_operand = right
         new_quads.append(quad)
     return new_quads
 
@@ -339,13 +341,15 @@ def main(argv):
     parser.addParseListener(Listener(memory_table))
     tree = parser.program()
     memory_table.print()
+    
     visitor = Visitor()
     visitor.visit(tree)
-    visitor.print_all()
+
     new_quads = preprocess_quads(visitor.quadruples)
-    
     for quad in new_quads:
         print(quad)
+    vm = VirtualMachine(quads=new_quads, memory=memory_table)
+    vm.run()
     
 if __name__ == "__main__":
     main(sys.argv)

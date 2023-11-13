@@ -8,6 +8,7 @@ class Type(Enum):
     FLOAT = 1
     BOOL = 2
     ERROR = 3
+    ID = 4
 
 class Operator(Enum):
     PLUS = 0
@@ -61,6 +62,7 @@ def parse_operator(operator: str):
         return Operator.PRINT_NEWLINE
     elif operator == "label":
         return Operator.LABEL
+    
     else:
         raise Exception("Invalid operator: {}".format(operator))
     
@@ -95,6 +97,20 @@ def parse_string(data):
         return False
     else:
         return data
+def get_result_type(left, right, operator) -> Type:
+    return cube[left.value][right.value][operator.value]
+
+def python_type_to_enum(python_type):
+    if python_type == int:
+        return Type.INT
+    elif python_type == float:
+        return Type.FLOAT
+    elif python_type == bool:
+        return Type.BOOL
+    elif python_type == str:
+        return Type.ID
+    else:
+        raise Exception("Invalid type: {}".format(python_type))
 
 def baby_duck_type_to_enum(baby_duck_type: str):
     if baby_duck_type == "int":
@@ -108,7 +124,7 @@ def baby_duck_type_to_enum(baby_duck_type: str):
     elif baby_duck_type == "void":
         return Type.VOID
     elif baby_duck_type == "str":
-        return Type.STRING
+        return Type.ID
     elif baby_duck_type == "error":
         return Type.ERROR
     else:
@@ -120,7 +136,7 @@ def baby_duck_type_to_enum(baby_duck_type: str):
 # Specifices the result of an operation between two operands.
 # The result is determined by the type of the operands and the operator.
 
-cube = [[[0 for k in range(10)] for j in range(10)] for i in range(10)]
+cube = [[[Type.ERROR for k in range(10)] for j in range(10)] for i in range(10)]
 
 # INT FLOAT
 cube[Type.INT.value][Type.FLOAT.value][Operator.PLUS.value] = Type.FLOAT

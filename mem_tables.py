@@ -22,7 +22,7 @@ class MemoryTable:
     def __init__(self):
         self.table = {}
     
-    def set(self, function_id: FunctionID, address, value: Value):
+    def set(self, function_id: FunctionID, address: str, value: Value):
         self.table[function_id][address] = value
     
     def __getitem__(self, function_id: FunctionID):
