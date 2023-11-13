@@ -4,16 +4,26 @@ from output.baby_duck_grammarLexer import baby_duck_grammarLexer
 from output.baby_duck_grammarParser import baby_duck_grammarParser
 from Quadruple import Quadruple
 from output.baby_duck_grammarListener import baby_duck_grammarListener
-from tables import FunctionID, FunctionTable, VariableTable
 from output.baby_duck_grammarVisitor import baby_duck_grammarVisitor
-
-
+from mem_tables import MemoryTable, FunctionID, Value
+from vm import VirtualMachine
+from SemanticCube import Operator, Type, baby_duck_type_to_enum, parse_operator
+ 
 class Listener(baby_duck_grammarListener):
-    def __init__(self, function_table: FunctionTable):
-        self.function_table = function_table
+    def __init__(self, memory_table: MemoryTable):
+        self.memory_table = memory_table
         self.variable_buffer = []
+        self.function_id_stack = []
 
+    def save_vars_to_memory(self, function_id: FunctionID):
+        for var_id, var_type in self.variable_buffer:
+            variable_value = Value(baby_duck_type_to_enum(var_type), None)
+            self.memory_table[function_id]["$" + var_id] = variable_value
+        self.variable_buffer = []
+        
     def enterProgram(self, ctx: baby_duck_grammarParser.ProgramContext):
+        self.function_id_stack.append(FunctionID("global", "void"))
+        self.memory_table[FunctionID("global", "void")] = {}
         return super().enterProgram(ctx)
 
     def exitProgram(self, ctx: baby_duck_grammarParser.ProgramContext):
@@ -22,37 +32,26 @@ class Listener(baby_duck_grammarListener):
     def enterProgram_post_var(
         self, ctx: baby_duck_grammarParser.Program_post_varContext
     ):
-        for id, type in self.variable_buffer:
-            self.function_table.insert_to_top(id, type)
+        current_function_id = self.function_id_stack.pop()
+        
+        self.save_vars_to_memory(current_function_id)
         return super().enterProgram_post_var(ctx)
 
     def enterFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
         self.variable_buffer = []
         return super().enterFuncs(ctx)
-
-    def binary_op_quadruple(self, ctx):
-        if ctx.getChildCount() == 3:
-            left_operand = ctx.getChild(0)
-            operator = ctx.getChild(1)
-            right_operand = ctx.getChild(2)
-            print(left_operand.getText(), operator.getText(), right_operand.getText())
-
-            result_temp = self.new_temporary()
-
-            quad = Quadruple(
-                left_operand=left_operand.getText(),
-                operator=operator.getText(),
-                right_operand=right_operand.getText(),
-                result=result_temp,
-            )
-            self.quadruples.append(quad)
-            print("Generated Quadruple: ", quad)
-
-    def exitFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
+    
+    def exitFunction_id(self, ctx: baby_duck_grammarParser.Function_idContext):
         function_id = FunctionID(ctx.ID().getText(), ctx.type_().getText())
-        self.function_table.insert_new_function(function_id)
-        for var_id, var_type in self.variable_buffer:
-            self.function_table.insert_to_top(var_id, var_type)
+        self.function_id_stack.append(function_id)
+        return super().exitFunction_id(ctx)
+    
+    def exitFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
+        current_function = self.function_id_stack.pop()
+        self.memory_table[current_function] = {}
+
+        self.save_vars_to_memory(current_function)
+        self.variable_buffer = []
         return super().exitFuncs(ctx)
 
     def exitF_param_list(self, ctx: baby_duck_grammarParser.F_param_listContext):
@@ -72,10 +71,6 @@ class Listener(baby_duck_grammarListener):
             self.variable_buffer.append((id_text, var_type))
         return super().exitVars_declarations(ctx)
 
-    def new_temporary(self):
-        name = f"t{self.temp_counter}"
-        self.temp_counter += 1
-        return name
 
 
 def determine_type(ctx):
@@ -124,6 +119,7 @@ class Visitor(baby_duck_grammarVisitor):
         return self.operand_stack[-1] if self.operand_stack else None
 
     def generate_quadruple(self, operator, left_operand, right_operand, result) -> int:
+        operator = parse_operator(operator)
         quad = Quadruple(
             operator=operator,
             left_operand=left_operand,
@@ -134,7 +130,7 @@ class Visitor(baby_duck_grammarVisitor):
         return len(self.quadruples) - 1
 
     def new_temporary(self):
-        name = f"t{self.temp_counter}"
+        name = f"$t_{self.temp_counter}"
         self.temp_counter += 1
         return name
 
@@ -276,23 +272,6 @@ class Visitor(baby_duck_grammarVisitor):
             temp_var = self.new_temporary()
             self.generate_quadruple(operator, result, right, temp_var)
             result = temp_var
-        
-        return result
-
-        # Now, process all subsequent terms with their preceding operators
-        # for i in range(1, len(ctx.term())):
-        #     operator = ctx.operator(i - 1).getText()  # The operator between terms
-        #     right = self.visit(ctx.term(i))  # The right operand (term)
-
-        #     # Generate a quadruple if there is a valid right operand
-        #     if right is not None:
-        #         result_temp = self.new_temporary()
-
-        #         # Generate a quadruple for the operation
-        #         self.generate_quadruple(operator, result, right, result_temp)
-
-        #         # The result of this operation becomes the "result" for the next operation
-        #         result = result_temp
 
         return result
 
@@ -306,22 +285,6 @@ class Visitor(baby_duck_grammarVisitor):
             self.generate_quadruple(operator, left, right, temp_var)
             return temp_var
         return left
-        # Now, process all subsequent factors
-        # for i in range(1, len(ctx.factor())):
-        #     operator = ctx.getChild(2 * i - 1).getText()
-        #     right = self.visit(ctx.factor(i))
-
-        #     if right is not None:
-        #         result_temp = self.new_temporary()
-
-        #         # Generate a quadruple for the operation
-        #         self.generate_quadruple(operator, result, right, result_temp)
-
-        #         # The result of this operation will be used as the left operand
-        #         # for the next operation (if any)
-        #         result = result_temp
-
-        return result
 
     def visitPrint(self, ctx: baby_duck_grammarParser.PrintContext):
         if ctx.print_helper():
@@ -351,17 +314,15 @@ def main(argv):
     lexer = baby_duck_grammarLexer(input_stream)
     stream = CommonTokenStream(lexer)
     parser = baby_duck_grammarParser(stream)
-    function_table = FunctionTable()
-    function_table.insert_new_function(FunctionID("global", "void"))
-    parser.addParseListener(Listener(function_table))
+    memory_table = MemoryTable()
+    parser.addParseListener(Listener(memory_table))
     tree = parser.program()
-    # function_table.print_all()
-    print("parsing complete")
-    print("Visitor start")
+    memory_table.print()
     visitor = Visitor()
     visitor.visit(tree)
     visitor.print_all()
-
+    # vm = VirtualMachine(visitor.quadruples, memory_table)
+    # vm.run()
 
 if __name__ == "__main__":
     main(sys.argv)

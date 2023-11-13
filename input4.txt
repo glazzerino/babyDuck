@@ -1,12 +1,9 @@
 program CompilerV1;
 
-
+var number1: int;
 main 
 { 
-    number1 = 1 + 1 * 1 / (1 + 2);
-
-    emptyFunction2(2, 3);
-    emptyFunction2(2, 3);
+    number1 = 1 + 1;
 }
 
 end

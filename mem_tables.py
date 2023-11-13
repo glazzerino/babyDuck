@@ -14,33 +14,16 @@ class FunctionID:
         return self.name == other.name and self.type == other.type
 
 @dataclass(frozen=True)
-class Variable:
+class Value:
     type: Type
     value: any
-def baby_duck_type_to_enum(baby_duck_type: str):
-    if baby_duck_type == "int":
-        return Type.INT
-    elif baby_duck_type == "float":
-        return Type.FLOAT
-    elif baby_duck_type == "char":
-        return Type.CHAR
-    elif baby_duck_type == "bool":
-        return Type.BOOL
-    elif baby_duck_type == "void":
-        return Type.VOID
-    elif baby_duck_type == "string":
-        return Type.STRING
-    elif baby_duck_type == "error":
-        return Type.ERROR
-    else:
-        raise Exception("Invalid type: {}".format(baby_duck_type))
-
+    
 class MemoryTable:
     def __init__(self):
         self.table = {}
     
-    def set(self, function_id: FunctionID, variable: Variable):
-        self.table[function_id][variable] = variable
+    def set(self, function_id: FunctionID, address, value: Value):
+        self.table[function_id][address] = value
     
     def __getitem__(self, function_id: FunctionID):
         return self.table[function_id]
@@ -53,3 +36,23 @@ class MemoryTable:
         print(self.table)
         print()
     
+    def print(self):
+        if not self.table:
+            print("Empty Memory Table")
+            return
+
+        header = "| {:<15} | {:<10} | {:<10} |".format("Value", "Type", "Value")
+        print("-" * len(header))
+        print(header)
+        print("-" * len(header))
+
+        for function_id, variables in self.table.items():
+            print(f"Function: {function_id.name}, Type: {function_id.type}")
+            for var_id, details in variables.items():
+                row = "| {:<15} | {:<10} | {:<10} |".format(
+                    var_id,
+                    details.type.name.lower(),
+                    str(details.value) if details.value is not None else "N/A",
+                )
+                print(row)
+            print("-" * len(header))

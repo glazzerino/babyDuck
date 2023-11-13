@@ -79,6 +79,11 @@ class baby_duck_grammarVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by baby_duck_grammarParser#function_id.
+    def visitFunction_id(self, ctx:baby_duck_grammarParser.Function_idContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by baby_duck_grammarParser#vars.
     def visitVars(self, ctx:baby_duck_grammarParser.VarsContext):
         return self.visitChildren(ctx)

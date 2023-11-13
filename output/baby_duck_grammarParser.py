@@ -10,89 +10,90 @@ else:
 
 def serializedATN():
     return [
-        4,1,35,248,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,35,252,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,
         7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,
-        2,27,7,27,2,28,7,28,1,0,1,0,1,0,1,0,3,0,63,8,0,1,0,1,0,1,1,5,1,68,
-        8,1,10,1,12,1,71,9,1,1,1,1,1,1,1,1,1,1,2,1,2,5,2,79,8,2,10,2,12,
-        2,82,9,2,1,2,1,2,1,3,1,3,1,3,1,3,1,3,3,3,91,8,3,1,4,1,4,1,5,1,5,
-        1,5,1,5,1,5,1,6,1,6,1,6,1,6,3,6,104,8,6,1,7,1,7,1,8,1,8,1,9,1,9,
-        1,9,3,9,113,8,9,1,9,1,9,1,9,1,10,1,10,3,10,120,8,10,1,10,1,10,1,
-        10,3,10,125,8,10,5,10,127,8,10,10,10,12,10,130,9,10,1,11,1,11,1,
-        11,5,11,135,8,11,10,11,12,11,138,9,11,3,11,140,8,11,1,12,1,12,1,
-        12,1,12,1,13,1,13,1,13,1,13,1,13,1,13,1,13,3,13,153,8,13,1,13,1,
-        13,1,13,1,13,1,14,1,14,4,14,161,8,14,11,14,12,14,162,1,15,1,15,1,
-        15,5,15,168,8,15,10,15,12,15,171,9,15,1,15,1,15,1,15,1,15,1,16,1,
-        16,1,16,1,16,1,16,1,16,1,16,1,16,1,17,1,17,1,18,1,18,1,18,1,18,1,
-        18,1,18,3,18,193,8,18,1,18,1,18,1,19,1,19,1,19,1,20,1,20,1,21,1,
-        21,1,21,1,21,3,21,206,8,21,1,22,1,22,1,22,1,22,3,22,212,8,22,1,23,
-        1,23,1,24,1,24,3,24,218,8,24,1,24,1,24,3,24,222,8,24,3,24,224,8,
-        24,1,25,1,25,1,26,1,26,1,26,1,26,1,27,1,27,1,27,3,27,235,8,27,1,
-        27,1,27,1,27,1,28,1,28,1,28,5,28,243,8,28,10,28,12,28,246,9,28,1,
-        28,0,0,29,0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,
-        40,42,44,46,48,50,52,54,56,0,5,1,0,7,10,1,0,12,14,2,0,32,32,34,34,
-        1,0,27,28,1,0,29,30,243,0,58,1,0,0,0,2,69,1,0,0,0,4,76,1,0,0,0,6,
-        90,1,0,0,0,8,92,1,0,0,0,10,94,1,0,0,0,12,99,1,0,0,0,14,105,1,0,0,
-        0,16,107,1,0,0,0,18,109,1,0,0,0,20,119,1,0,0,0,22,139,1,0,0,0,24,
-        141,1,0,0,0,26,145,1,0,0,0,28,158,1,0,0,0,30,164,1,0,0,0,32,176,
-        1,0,0,0,34,184,1,0,0,0,36,186,1,0,0,0,38,196,1,0,0,0,40,199,1,0,
-        0,0,42,201,1,0,0,0,44,207,1,0,0,0,46,213,1,0,0,0,48,223,1,0,0,0,
-        50,225,1,0,0,0,52,227,1,0,0,0,54,231,1,0,0,0,56,239,1,0,0,0,58,59,
-        5,1,0,0,59,60,5,31,0,0,60,62,5,2,0,0,61,63,3,28,14,0,62,61,1,0,0,
-        0,62,63,1,0,0,0,63,64,1,0,0,0,64,65,3,2,1,0,65,1,1,0,0,0,66,68,3,
-        26,13,0,67,66,1,0,0,0,68,71,1,0,0,0,69,67,1,0,0,0,69,70,1,0,0,0,
-        70,72,1,0,0,0,71,69,1,0,0,0,72,73,5,3,0,0,73,74,3,4,2,0,74,75,5,
-        4,0,0,75,3,1,0,0,0,76,80,5,5,0,0,77,79,3,6,3,0,78,77,1,0,0,0,79,
-        82,1,0,0,0,80,78,1,0,0,0,80,81,1,0,0,0,81,83,1,0,0,0,82,80,1,0,0,
-        0,83,84,5,6,0,0,84,5,1,0,0,0,85,91,3,10,5,0,86,91,3,36,18,0,87,91,
-        3,32,16,0,88,91,3,54,27,0,89,91,3,18,9,0,90,85,1,0,0,0,90,86,1,0,
-        0,0,90,87,1,0,0,0,90,88,1,0,0,0,90,89,1,0,0,0,91,7,1,0,0,0,92,93,
-        7,0,0,0,93,9,1,0,0,0,94,95,5,31,0,0,95,96,5,11,0,0,96,97,3,12,6,
-        0,97,98,5,2,0,0,98,11,1,0,0,0,99,103,3,42,21,0,100,101,3,14,7,0,
-        101,102,3,12,6,0,102,104,1,0,0,0,103,100,1,0,0,0,103,104,1,0,0,0,
-        104,13,1,0,0,0,105,106,7,1,0,0,106,15,1,0,0,0,107,108,7,2,0,0,108,
-        17,1,0,0,0,109,110,5,15,0,0,110,112,5,16,0,0,111,113,3,20,10,0,112,
-        111,1,0,0,0,112,113,1,0,0,0,113,114,1,0,0,0,114,115,5,17,0,0,115,
-        116,5,2,0,0,116,19,1,0,0,0,117,120,3,12,6,0,118,120,5,35,0,0,119,
-        117,1,0,0,0,119,118,1,0,0,0,120,128,1,0,0,0,121,124,5,18,0,0,122,
-        125,3,12,6,0,123,125,5,35,0,0,124,122,1,0,0,0,124,123,1,0,0,0,125,
-        127,1,0,0,0,126,121,1,0,0,0,127,130,1,0,0,0,128,126,1,0,0,0,128,
-        129,1,0,0,0,129,21,1,0,0,0,130,128,1,0,0,0,131,136,3,24,12,0,132,
-        133,5,18,0,0,133,135,3,24,12,0,134,132,1,0,0,0,135,138,1,0,0,0,136,
-        134,1,0,0,0,136,137,1,0,0,0,137,140,1,0,0,0,138,136,1,0,0,0,139,
-        131,1,0,0,0,139,140,1,0,0,0,140,23,1,0,0,0,141,142,5,31,0,0,142,
-        143,5,19,0,0,143,144,3,8,4,0,144,25,1,0,0,0,145,146,3,8,4,0,146,
-        147,5,31,0,0,147,148,5,16,0,0,148,149,3,22,11,0,149,150,5,17,0,0,
-        150,152,5,20,0,0,151,153,3,28,14,0,152,151,1,0,0,0,152,153,1,0,0,
-        0,153,154,1,0,0,0,154,155,3,4,2,0,155,156,5,21,0,0,156,157,5,2,0,
-        0,157,27,1,0,0,0,158,160,5,22,0,0,159,161,3,30,15,0,160,159,1,0,
-        0,0,161,162,1,0,0,0,162,160,1,0,0,0,162,163,1,0,0,0,163,29,1,0,0,
-        0,164,169,5,31,0,0,165,166,5,18,0,0,166,168,5,31,0,0,167,165,1,0,
-        0,0,168,171,1,0,0,0,169,167,1,0,0,0,169,170,1,0,0,0,170,172,1,0,
-        0,0,171,169,1,0,0,0,172,173,5,19,0,0,173,174,3,8,4,0,174,175,5,2,
-        0,0,175,31,1,0,0,0,176,177,3,34,17,0,177,178,3,4,2,0,178,179,5,23,
-        0,0,179,180,5,16,0,0,180,181,3,12,6,0,181,182,5,17,0,0,182,183,5,
-        2,0,0,183,33,1,0,0,0,184,185,5,24,0,0,185,35,1,0,0,0,186,187,5,25,
-        0,0,187,188,5,16,0,0,188,189,3,12,6,0,189,190,5,17,0,0,190,192,3,
-        4,2,0,191,193,3,38,19,0,192,191,1,0,0,0,192,193,1,0,0,0,193,194,
-        1,0,0,0,194,195,5,2,0,0,195,37,1,0,0,0,196,197,5,26,0,0,197,198,
-        3,4,2,0,198,39,1,0,0,0,199,200,7,3,0,0,200,41,1,0,0,0,201,205,3,
-        44,22,0,202,203,3,40,20,0,203,204,3,42,21,0,204,206,1,0,0,0,205,
-        202,1,0,0,0,205,206,1,0,0,0,206,43,1,0,0,0,207,211,3,48,24,0,208,
-        209,3,46,23,0,209,210,3,44,22,0,210,212,1,0,0,0,211,208,1,0,0,0,
-        211,212,1,0,0,0,212,45,1,0,0,0,213,214,7,4,0,0,214,47,1,0,0,0,215,
-        224,3,52,26,0,216,218,3,50,25,0,217,216,1,0,0,0,217,218,1,0,0,0,
-        218,221,1,0,0,0,219,222,5,31,0,0,220,222,3,16,8,0,221,219,1,0,0,
-        0,221,220,1,0,0,0,222,224,1,0,0,0,223,215,1,0,0,0,223,217,1,0,0,
-        0,224,49,1,0,0,0,225,226,7,3,0,0,226,51,1,0,0,0,227,228,5,16,0,0,
-        228,229,3,12,6,0,229,230,5,17,0,0,230,53,1,0,0,0,231,232,5,31,0,
-        0,232,234,5,16,0,0,233,235,3,56,28,0,234,233,1,0,0,0,234,235,1,0,
-        0,0,235,236,1,0,0,0,236,237,5,17,0,0,237,238,5,2,0,0,238,55,1,0,
-        0,0,239,244,3,12,6,0,240,241,5,18,0,0,241,243,3,12,6,0,242,240,1,
-        0,0,0,243,246,1,0,0,0,244,242,1,0,0,0,244,245,1,0,0,0,245,57,1,0,
-        0,0,246,244,1,0,0,0,22,62,69,80,90,103,112,119,124,128,136,139,152,
-        162,169,192,205,211,217,221,223,234,244
+        2,27,7,27,2,28,7,28,2,29,7,29,1,0,1,0,1,0,1,0,3,0,65,8,0,1,0,1,0,
+        1,1,5,1,70,8,1,10,1,12,1,73,9,1,1,1,1,1,1,1,1,1,1,2,1,2,5,2,81,8,
+        2,10,2,12,2,84,9,2,1,2,1,2,1,3,1,3,1,3,1,3,1,3,3,3,93,8,3,1,4,1,
+        4,1,5,1,5,1,5,1,5,1,5,1,6,1,6,1,6,1,6,3,6,106,8,6,1,7,1,7,1,8,1,
+        8,1,9,1,9,1,9,3,9,115,8,9,1,9,1,9,1,9,1,10,1,10,3,10,122,8,10,1,
+        10,1,10,1,10,3,10,127,8,10,5,10,129,8,10,10,10,12,10,132,9,10,1,
+        11,1,11,1,11,5,11,137,8,11,10,11,12,11,140,9,11,3,11,142,8,11,1,
+        12,1,12,1,12,1,12,1,13,1,13,1,13,1,13,1,13,1,13,3,13,154,8,13,1,
+        13,1,13,1,13,1,13,1,14,1,14,1,14,1,15,1,15,4,15,165,8,15,11,15,12,
+        15,166,1,16,1,16,1,16,5,16,172,8,16,10,16,12,16,175,9,16,1,16,1,
+        16,1,16,1,16,1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,17,1,18,1,18,1,
+        19,1,19,1,19,1,19,1,19,1,19,3,19,197,8,19,1,19,1,19,1,20,1,20,1,
+        20,1,21,1,21,1,22,1,22,1,22,1,22,3,22,210,8,22,1,23,1,23,1,23,1,
+        23,3,23,216,8,23,1,24,1,24,1,25,1,25,3,25,222,8,25,1,25,1,25,3,25,
+        226,8,25,3,25,228,8,25,1,26,1,26,1,27,1,27,1,27,1,27,1,28,1,28,1,
+        28,3,28,239,8,28,1,28,1,28,1,28,1,29,1,29,1,29,5,29,247,8,29,10,
+        29,12,29,250,9,29,1,29,0,0,30,0,2,4,6,8,10,12,14,16,18,20,22,24,
+        26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58,0,5,1,0,7,10,
+        1,0,12,14,2,0,32,32,34,34,1,0,27,28,1,0,29,30,246,0,60,1,0,0,0,2,
+        71,1,0,0,0,4,78,1,0,0,0,6,92,1,0,0,0,8,94,1,0,0,0,10,96,1,0,0,0,
+        12,101,1,0,0,0,14,107,1,0,0,0,16,109,1,0,0,0,18,111,1,0,0,0,20,121,
+        1,0,0,0,22,141,1,0,0,0,24,143,1,0,0,0,26,147,1,0,0,0,28,159,1,0,
+        0,0,30,162,1,0,0,0,32,168,1,0,0,0,34,180,1,0,0,0,36,188,1,0,0,0,
+        38,190,1,0,0,0,40,200,1,0,0,0,42,203,1,0,0,0,44,205,1,0,0,0,46,211,
+        1,0,0,0,48,217,1,0,0,0,50,227,1,0,0,0,52,229,1,0,0,0,54,231,1,0,
+        0,0,56,235,1,0,0,0,58,243,1,0,0,0,60,61,5,1,0,0,61,62,5,31,0,0,62,
+        64,5,2,0,0,63,65,3,30,15,0,64,63,1,0,0,0,64,65,1,0,0,0,65,66,1,0,
+        0,0,66,67,3,2,1,0,67,1,1,0,0,0,68,70,3,26,13,0,69,68,1,0,0,0,70,
+        73,1,0,0,0,71,69,1,0,0,0,71,72,1,0,0,0,72,74,1,0,0,0,73,71,1,0,0,
+        0,74,75,5,3,0,0,75,76,3,4,2,0,76,77,5,4,0,0,77,3,1,0,0,0,78,82,5,
+        5,0,0,79,81,3,6,3,0,80,79,1,0,0,0,81,84,1,0,0,0,82,80,1,0,0,0,82,
+        83,1,0,0,0,83,85,1,0,0,0,84,82,1,0,0,0,85,86,5,6,0,0,86,5,1,0,0,
+        0,87,93,3,10,5,0,88,93,3,38,19,0,89,93,3,34,17,0,90,93,3,56,28,0,
+        91,93,3,18,9,0,92,87,1,0,0,0,92,88,1,0,0,0,92,89,1,0,0,0,92,90,1,
+        0,0,0,92,91,1,0,0,0,93,7,1,0,0,0,94,95,7,0,0,0,95,9,1,0,0,0,96,97,
+        5,31,0,0,97,98,5,11,0,0,98,99,3,12,6,0,99,100,5,2,0,0,100,11,1,0,
+        0,0,101,105,3,44,22,0,102,103,3,14,7,0,103,104,3,12,6,0,104,106,
+        1,0,0,0,105,102,1,0,0,0,105,106,1,0,0,0,106,13,1,0,0,0,107,108,7,
+        1,0,0,108,15,1,0,0,0,109,110,7,2,0,0,110,17,1,0,0,0,111,112,5,15,
+        0,0,112,114,5,16,0,0,113,115,3,20,10,0,114,113,1,0,0,0,114,115,1,
+        0,0,0,115,116,1,0,0,0,116,117,5,17,0,0,117,118,5,2,0,0,118,19,1,
+        0,0,0,119,122,3,12,6,0,120,122,5,35,0,0,121,119,1,0,0,0,121,120,
+        1,0,0,0,122,130,1,0,0,0,123,126,5,18,0,0,124,127,3,12,6,0,125,127,
+        5,35,0,0,126,124,1,0,0,0,126,125,1,0,0,0,127,129,1,0,0,0,128,123,
+        1,0,0,0,129,132,1,0,0,0,130,128,1,0,0,0,130,131,1,0,0,0,131,21,1,
+        0,0,0,132,130,1,0,0,0,133,138,3,24,12,0,134,135,5,18,0,0,135,137,
+        3,24,12,0,136,134,1,0,0,0,137,140,1,0,0,0,138,136,1,0,0,0,138,139,
+        1,0,0,0,139,142,1,0,0,0,140,138,1,0,0,0,141,133,1,0,0,0,141,142,
+        1,0,0,0,142,23,1,0,0,0,143,144,5,31,0,0,144,145,5,19,0,0,145,146,
+        3,8,4,0,146,25,1,0,0,0,147,148,3,28,14,0,148,149,5,16,0,0,149,150,
+        3,22,11,0,150,151,5,17,0,0,151,153,5,20,0,0,152,154,3,30,15,0,153,
+        152,1,0,0,0,153,154,1,0,0,0,154,155,1,0,0,0,155,156,3,4,2,0,156,
+        157,5,21,0,0,157,158,5,2,0,0,158,27,1,0,0,0,159,160,3,8,4,0,160,
+        161,5,31,0,0,161,29,1,0,0,0,162,164,5,22,0,0,163,165,3,32,16,0,164,
+        163,1,0,0,0,165,166,1,0,0,0,166,164,1,0,0,0,166,167,1,0,0,0,167,
+        31,1,0,0,0,168,173,5,31,0,0,169,170,5,18,0,0,170,172,5,31,0,0,171,
+        169,1,0,0,0,172,175,1,0,0,0,173,171,1,0,0,0,173,174,1,0,0,0,174,
+        176,1,0,0,0,175,173,1,0,0,0,176,177,5,19,0,0,177,178,3,8,4,0,178,
+        179,5,2,0,0,179,33,1,0,0,0,180,181,5,23,0,0,181,182,3,4,2,0,182,
+        183,5,24,0,0,183,184,5,16,0,0,184,185,3,12,6,0,185,186,5,17,0,0,
+        186,187,5,2,0,0,187,35,1,0,0,0,188,189,5,24,0,0,189,37,1,0,0,0,190,
+        191,5,25,0,0,191,192,5,16,0,0,192,193,3,12,6,0,193,194,5,17,0,0,
+        194,196,3,4,2,0,195,197,3,40,20,0,196,195,1,0,0,0,196,197,1,0,0,
+        0,197,198,1,0,0,0,198,199,5,2,0,0,199,39,1,0,0,0,200,201,5,26,0,
+        0,201,202,3,4,2,0,202,41,1,0,0,0,203,204,7,3,0,0,204,43,1,0,0,0,
+        205,209,3,46,23,0,206,207,3,42,21,0,207,208,3,44,22,0,208,210,1,
+        0,0,0,209,206,1,0,0,0,209,210,1,0,0,0,210,45,1,0,0,0,211,215,3,50,
+        25,0,212,213,3,48,24,0,213,214,3,46,23,0,214,216,1,0,0,0,215,212,
+        1,0,0,0,215,216,1,0,0,0,216,47,1,0,0,0,217,218,7,4,0,0,218,49,1,
+        0,0,0,219,228,3,54,27,0,220,222,3,52,26,0,221,220,1,0,0,0,221,222,
+        1,0,0,0,222,225,1,0,0,0,223,226,5,31,0,0,224,226,3,16,8,0,225,223,
+        1,0,0,0,225,224,1,0,0,0,226,228,1,0,0,0,227,219,1,0,0,0,227,221,
+        1,0,0,0,228,51,1,0,0,0,229,230,7,3,0,0,230,53,1,0,0,0,231,232,5,
+        16,0,0,232,233,3,12,6,0,233,234,5,17,0,0,234,55,1,0,0,0,235,236,
+        5,31,0,0,236,238,5,16,0,0,237,239,3,58,29,0,238,237,1,0,0,0,238,
+        239,1,0,0,0,239,240,1,0,0,0,240,241,5,17,0,0,241,242,5,2,0,0,242,
+        57,1,0,0,0,243,248,3,12,6,0,244,245,5,18,0,0,245,247,3,12,6,0,246,
+        244,1,0,0,0,247,250,1,0,0,0,248,246,1,0,0,0,248,249,1,0,0,0,249,
+        59,1,0,0,0,250,248,1,0,0,0,22,64,71,82,92,105,114,121,126,130,138,
+        141,153,166,173,196,209,215,221,225,227,238,248
     ]
 
 class baby_duck_grammarParser ( Parser ):
@@ -135,28 +136,29 @@ class baby_duck_grammarParser ( Parser ):
     RULE_f_param_list = 11
     RULE_f_param_list_helper = 12
     RULE_funcs = 13
-    RULE_vars = 14
-    RULE_vars_declarations = 15
-    RULE_cycle = 16
-    RULE_while_keyword = 17
-    RULE_condition = 18
-    RULE_condition_else = 19
-    RULE_operator = 20
-    RULE_exp = 21
-    RULE_term = 22
-    RULE_term_operator = 23
-    RULE_factor = 24
-    RULE_factor_operator = 25
-    RULE_parenthesized_expression = 26
-    RULE_f_call = 27
-    RULE_f_call_helper = 28
+    RULE_function_id = 14
+    RULE_vars = 15
+    RULE_vars_declarations = 16
+    RULE_cycle = 17
+    RULE_while_keyword = 18
+    RULE_condition = 19
+    RULE_condition_else = 20
+    RULE_operator = 21
+    RULE_exp = 22
+    RULE_term = 23
+    RULE_term_operator = 24
+    RULE_factor = 25
+    RULE_factor_operator = 26
+    RULE_parenthesized_expression = 27
+    RULE_f_call = 28
+    RULE_f_call_helper = 29
 
     ruleNames =  [ "program", "program_post_var", "body", "statement", "type", 
                    "assign", "expression", "rel_op", "cte", "print", "print_helper", 
-                   "f_param_list", "f_param_list_helper", "funcs", "vars", 
-                   "vars_declarations", "cycle", "while_keyword", "condition", 
-                   "condition_else", "operator", "exp", "term", "term_operator", 
-                   "factor", "factor_operator", "parenthesized_expression", 
+                   "f_param_list", "f_param_list_helper", "funcs", "function_id", 
+                   "vars", "vars_declarations", "cycle", "while_keyword", 
+                   "condition", "condition_else", "operator", "exp", "term", 
+                   "term_operator", "factor", "factor_operator", "parenthesized_expression", 
                    "f_call", "f_call_helper" ]
 
     EOF = Token.EOF
@@ -250,21 +252,21 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 58
-            self.match(baby_duck_grammarParser.T__0)
-            self.state = 59
-            self.match(baby_duck_grammarParser.ID)
             self.state = 60
-            self.match(baby_duck_grammarParser.T__1)
+            self.match(baby_duck_grammarParser.T__0)
+            self.state = 61
+            self.match(baby_duck_grammarParser.ID)
             self.state = 62
+            self.match(baby_duck_grammarParser.T__1)
+            self.state = 64
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==22:
-                self.state = 61
+                self.state = 63
                 self.vars_()
 
 
-            self.state = 64
+            self.state = 66
             self.program_post_var()
         except RecognitionException as re:
             localctx.exception = re
@@ -320,21 +322,21 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 69
+            self.state = 71
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & 1920) != 0):
-                self.state = 66
+                self.state = 68
                 self.funcs()
-                self.state = 71
+                self.state = 73
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 72
-            self.match(baby_duck_grammarParser.T__2)
-            self.state = 73
-            self.body()
             self.state = 74
+            self.match(baby_duck_grammarParser.T__2)
+            self.state = 75
+            self.body()
+            self.state = 76
             self.match(baby_duck_grammarParser.T__3)
         except RecognitionException as re:
             localctx.exception = re
@@ -386,19 +388,19 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 76
+            self.state = 78
             self.match(baby_duck_grammarParser.T__4)
-            self.state = 80
+            self.state = 82
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 2197848064) != 0):
-                self.state = 77
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 2189459456) != 0):
+                self.state = 79
                 self.statement()
-                self.state = 82
+                self.state = 84
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 83
+            self.state = 85
             self.match(baby_duck_grammarParser.T__5)
         except RecognitionException as re:
             localctx.exception = re
@@ -461,36 +463,36 @@ class baby_duck_grammarParser ( Parser ):
         localctx = baby_duck_grammarParser.StatementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_statement)
         try:
-            self.state = 90
+            self.state = 92
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 85
+                self.state = 87
                 self.assign()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 86
+                self.state = 88
                 self.condition()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 87
+                self.state = 89
                 self.cycle()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 88
+                self.state = 90
                 self.f_call()
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 89
+                self.state = 91
                 self.print_()
                 pass
 
@@ -539,7 +541,7 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 92
+            self.state = 94
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 1920) != 0)):
                 self._errHandler.recoverInline(self)
@@ -595,13 +597,13 @@ class baby_duck_grammarParser ( Parser ):
         self.enterRule(localctx, 10, self.RULE_assign)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 94
-            self.match(baby_duck_grammarParser.ID)
-            self.state = 95
-            self.match(baby_duck_grammarParser.T__10)
             self.state = 96
-            self.expression()
+            self.match(baby_duck_grammarParser.ID)
             self.state = 97
+            self.match(baby_duck_grammarParser.T__10)
+            self.state = 98
+            self.expression()
+            self.state = 99
             self.match(baby_duck_grammarParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -658,15 +660,15 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 99
+            self.state = 101
             self.exp()
-            self.state = 103
+            self.state = 105
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 28672) != 0):
-                self.state = 100
+                self.state = 102
                 self.rel_op()
-                self.state = 101
+                self.state = 103
                 self.expression()
 
 
@@ -714,7 +716,7 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 105
+            self.state = 107
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 28672) != 0)):
                 self._errHandler.recoverInline(self)
@@ -770,7 +772,7 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 107
+            self.state = 109
             _la = self._input.LA(1)
             if not(_la==32 or _la==34):
                 self._errHandler.recoverInline(self)
@@ -824,21 +826,21 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 109
+            self.state = 111
             self.match(baby_duck_grammarParser.T__14)
-            self.state = 110
-            self.match(baby_duck_grammarParser.T__15)
             self.state = 112
+            self.match(baby_duck_grammarParser.T__15)
+            self.state = 114
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 58384777216) != 0):
-                self.state = 111
+                self.state = 113
                 self.print_helper()
 
 
-            self.state = 114
+            self.state = 116
             self.match(baby_duck_grammarParser.T__16)
-            self.state = 115
+            self.state = 117
             self.match(baby_duck_grammarParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -896,41 +898,41 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 119
+            self.state = 121
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [16, 27, 28, 31, 32, 34]:
-                self.state = 117
+                self.state = 119
                 self.expression()
                 pass
             elif token in [35]:
-                self.state = 118
+                self.state = 120
                 self.match(baby_duck_grammarParser.STRING)
                 pass
             else:
                 raise NoViableAltException(self)
 
-            self.state = 128
+            self.state = 130
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==18:
-                self.state = 121
+                self.state = 123
                 self.match(baby_duck_grammarParser.T__17)
-                self.state = 124
+                self.state = 126
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [16, 27, 28, 31, 32, 34]:
-                    self.state = 122
+                    self.state = 124
                     self.expression()
                     pass
                 elif token in [35]:
-                    self.state = 123
+                    self.state = 125
                     self.match(baby_duck_grammarParser.STRING)
                     pass
                 else:
                     raise NoViableAltException(self)
 
-                self.state = 130
+                self.state = 132
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
@@ -984,21 +986,21 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 139
+            self.state = 141
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==31:
-                self.state = 131
+                self.state = 133
                 self.f_param_list_helper()
-                self.state = 136
+                self.state = 138
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==18:
-                    self.state = 132
+                    self.state = 134
                     self.match(baby_duck_grammarParser.T__17)
-                    self.state = 133
+                    self.state = 135
                     self.f_param_list_helper()
-                    self.state = 138
+                    self.state = 140
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -1053,11 +1055,11 @@ class baby_duck_grammarParser ( Parser ):
         self.enterRule(localctx, 24, self.RULE_f_param_list_helper)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 141
-            self.match(baby_duck_grammarParser.ID)
-            self.state = 142
-            self.match(baby_duck_grammarParser.T__18)
             self.state = 143
+            self.match(baby_duck_grammarParser.ID)
+            self.state = 144
+            self.match(baby_duck_grammarParser.T__18)
+            self.state = 145
             self.type_()
         except RecognitionException as re:
             localctx.exception = re
@@ -1075,12 +1077,9 @@ class baby_duck_grammarParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def type_(self):
-            return self.getTypedRuleContext(baby_duck_grammarParser.TypeContext,0)
+        def function_id(self):
+            return self.getTypedRuleContext(baby_duck_grammarParser.Function_idContext,0)
 
-
-        def ID(self):
-            return self.getToken(baby_duck_grammarParser.ID, 0)
 
         def f_param_list(self):
             return self.getTypedRuleContext(baby_duck_grammarParser.F_param_listContext,0)
@@ -1121,32 +1120,83 @@ class baby_duck_grammarParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 145
-            self.type_()
-            self.state = 146
-            self.match(baby_duck_grammarParser.ID)
             self.state = 147
-            self.match(baby_duck_grammarParser.T__15)
+            self.function_id()
             self.state = 148
-            self.f_param_list()
+            self.match(baby_duck_grammarParser.T__15)
             self.state = 149
-            self.match(baby_duck_grammarParser.T__16)
+            self.f_param_list()
             self.state = 150
+            self.match(baby_duck_grammarParser.T__16)
+            self.state = 151
             self.match(baby_duck_grammarParser.T__19)
-            self.state = 152
+            self.state = 153
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==22:
-                self.state = 151
+                self.state = 152
                 self.vars_()
 
 
-            self.state = 154
-            self.body()
             self.state = 155
-            self.match(baby_duck_grammarParser.T__20)
+            self.body()
             self.state = 156
+            self.match(baby_duck_grammarParser.T__20)
+            self.state = 157
             self.match(baby_duck_grammarParser.T__1)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Function_idContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def type_(self):
+            return self.getTypedRuleContext(baby_duck_grammarParser.TypeContext,0)
+
+
+        def ID(self):
+            return self.getToken(baby_duck_grammarParser.ID, 0)
+
+        def getRuleIndex(self):
+            return baby_duck_grammarParser.RULE_function_id
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterFunction_id" ):
+                listener.enterFunction_id(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitFunction_id" ):
+                listener.exitFunction_id(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFunction_id" ):
+                return visitor.visitFunction_id(self)
+            else:
+                return visitor.visitChildren(self)
+
+
+
+
+    def function_id(self):
+
+        localctx = baby_duck_grammarParser.Function_idContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 28, self.RULE_function_id)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 159
+            self.type_()
+            self.state = 160
+            self.match(baby_duck_grammarParser.ID)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1193,19 +1243,19 @@ class baby_duck_grammarParser ( Parser ):
     def vars_(self):
 
         localctx = baby_duck_grammarParser.VarsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 28, self.RULE_vars)
+        self.enterRule(localctx, 30, self.RULE_vars)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 158
+            self.state = 162
             self.match(baby_duck_grammarParser.T__21)
-            self.state = 160 
+            self.state = 164 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 159
+                self.state = 163
                 self.vars_declarations()
-                self.state = 162 
+                self.state = 166 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==31):
@@ -1260,29 +1310,29 @@ class baby_duck_grammarParser ( Parser ):
     def vars_declarations(self):
 
         localctx = baby_duck_grammarParser.Vars_declarationsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 30, self.RULE_vars_declarations)
+        self.enterRule(localctx, 32, self.RULE_vars_declarations)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 164
+            self.state = 168
             self.match(baby_duck_grammarParser.ID)
-            self.state = 169
+            self.state = 173
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==18:
-                self.state = 165
+                self.state = 169
                 self.match(baby_duck_grammarParser.T__17)
-                self.state = 166
+                self.state = 170
                 self.match(baby_duck_grammarParser.ID)
-                self.state = 171
+                self.state = 175
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 172
+            self.state = 176
             self.match(baby_duck_grammarParser.T__18)
-            self.state = 173
+            self.state = 177
             self.type_()
-            self.state = 174
+            self.state = 178
             self.match(baby_duck_grammarParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1299,10 +1349,6 @@ class baby_duck_grammarParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
-        def while_keyword(self):
-            return self.getTypedRuleContext(baby_duck_grammarParser.While_keywordContext,0)
-
 
         def body(self):
             return self.getTypedRuleContext(baby_duck_grammarParser.BodyContext,0)
@@ -1335,22 +1381,22 @@ class baby_duck_grammarParser ( Parser ):
     def cycle(self):
 
         localctx = baby_duck_grammarParser.CycleContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 32, self.RULE_cycle)
+        self.enterRule(localctx, 34, self.RULE_cycle)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 176
-            self.while_keyword()
-            self.state = 177
-            self.body()
-            self.state = 178
-            self.match(baby_duck_grammarParser.T__22)
-            self.state = 179
-            self.match(baby_duck_grammarParser.T__15)
             self.state = 180
-            self.expression()
+            self.match(baby_duck_grammarParser.T__22)
             self.state = 181
-            self.match(baby_duck_grammarParser.T__16)
+            self.body()
             self.state = 182
+            self.match(baby_duck_grammarParser.T__23)
+            self.state = 183
+            self.match(baby_duck_grammarParser.T__15)
+            self.state = 184
+            self.expression()
+            self.state = 185
+            self.match(baby_duck_grammarParser.T__16)
+            self.state = 186
             self.match(baby_duck_grammarParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1392,10 +1438,10 @@ class baby_duck_grammarParser ( Parser ):
     def while_keyword(self):
 
         localctx = baby_duck_grammarParser.While_keywordContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 34, self.RULE_while_keyword)
+        self.enterRule(localctx, 36, self.RULE_while_keyword)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 184
+            self.state = 188
             self.match(baby_duck_grammarParser.T__23)
         except RecognitionException as re:
             localctx.exception = re
@@ -1448,29 +1494,29 @@ class baby_duck_grammarParser ( Parser ):
     def condition(self):
 
         localctx = baby_duck_grammarParser.ConditionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 36, self.RULE_condition)
+        self.enterRule(localctx, 38, self.RULE_condition)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 186
-            self.match(baby_duck_grammarParser.T__24)
-            self.state = 187
-            self.match(baby_duck_grammarParser.T__15)
-            self.state = 188
-            self.expression()
-            self.state = 189
-            self.match(baby_duck_grammarParser.T__16)
             self.state = 190
-            self.body()
+            self.match(baby_duck_grammarParser.T__24)
+            self.state = 191
+            self.match(baby_duck_grammarParser.T__15)
             self.state = 192
+            self.expression()
+            self.state = 193
+            self.match(baby_duck_grammarParser.T__16)
+            self.state = 194
+            self.body()
+            self.state = 196
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==26:
-                self.state = 191
+                self.state = 195
                 self.condition_else()
 
 
-            self.state = 194
+            self.state = 198
             self.match(baby_duck_grammarParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -1515,12 +1561,12 @@ class baby_duck_grammarParser ( Parser ):
     def condition_else(self):
 
         localctx = baby_duck_grammarParser.Condition_elseContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 38, self.RULE_condition_else)
+        self.enterRule(localctx, 40, self.RULE_condition_else)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 196
+            self.state = 200
             self.match(baby_duck_grammarParser.T__25)
-            self.state = 197
+            self.state = 201
             self.body()
         except RecognitionException as re:
             localctx.exception = re
@@ -1562,11 +1608,11 @@ class baby_duck_grammarParser ( Parser ):
     def operator(self):
 
         localctx = baby_duck_grammarParser.OperatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 40, self.RULE_operator)
+        self.enterRule(localctx, 42, self.RULE_operator)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 199
+            self.state = 203
             _la = self._input.LA(1)
             if not(_la==27 or _la==28):
                 self._errHandler.recoverInline(self)
@@ -1624,19 +1670,19 @@ class baby_duck_grammarParser ( Parser ):
     def exp(self):
 
         localctx = baby_duck_grammarParser.ExpContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 42, self.RULE_exp)
+        self.enterRule(localctx, 44, self.RULE_exp)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 201
-            self.term()
             self.state = 205
+            self.term()
+            self.state = 209
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==27 or _la==28:
-                self.state = 202
+                self.state = 206
                 self.operator()
-                self.state = 203
+                self.state = 207
                 self.exp()
 
 
@@ -1691,19 +1737,19 @@ class baby_duck_grammarParser ( Parser ):
     def term(self):
 
         localctx = baby_duck_grammarParser.TermContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 44, self.RULE_term)
+        self.enterRule(localctx, 46, self.RULE_term)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 207
-            self.factor()
             self.state = 211
+            self.factor()
+            self.state = 215
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==29 or _la==30:
-                self.state = 208
+                self.state = 212
                 self.term_operator()
-                self.state = 209
+                self.state = 213
                 self.term()
 
 
@@ -1747,11 +1793,11 @@ class baby_duck_grammarParser ( Parser ):
     def term_operator(self):
 
         localctx = baby_duck_grammarParser.Term_operatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 46, self.RULE_term_operator)
+        self.enterRule(localctx, 48, self.RULE_term_operator)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 213
+            self.state = 217
             _la = self._input.LA(1)
             if not(_la==29 or _la==30):
                 self._errHandler.recoverInline(self)
@@ -1812,36 +1858,36 @@ class baby_duck_grammarParser ( Parser ):
     def factor(self):
 
         localctx = baby_duck_grammarParser.FactorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 48, self.RULE_factor)
+        self.enterRule(localctx, 50, self.RULE_factor)
         self._la = 0 # Token type
         try:
-            self.state = 223
+            self.state = 227
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [16]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 215
+                self.state = 219
                 self.parenthesized_expression()
                 pass
             elif token in [27, 28, 31, 32, 34]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 217
+                self.state = 221
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==27 or _la==28:
-                    self.state = 216
+                    self.state = 220
                     self.factor_operator()
 
 
-                self.state = 221
+                self.state = 225
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
                 if token in [31]:
-                    self.state = 219
+                    self.state = 223
                     self.match(baby_duck_grammarParser.ID)
                     pass
                 elif token in [32, 34]:
-                    self.state = 220
+                    self.state = 224
                     self.cte()
                     pass
                 else:
@@ -1891,11 +1937,11 @@ class baby_duck_grammarParser ( Parser ):
     def factor_operator(self):
 
         localctx = baby_duck_grammarParser.Factor_operatorContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 50, self.RULE_factor_operator)
+        self.enterRule(localctx, 52, self.RULE_factor_operator)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 225
+            self.state = 229
             _la = self._input.LA(1)
             if not(_la==27 or _la==28):
                 self._errHandler.recoverInline(self)
@@ -1945,14 +1991,14 @@ class baby_duck_grammarParser ( Parser ):
     def parenthesized_expression(self):
 
         localctx = baby_duck_grammarParser.Parenthesized_expressionContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 52, self.RULE_parenthesized_expression)
+        self.enterRule(localctx, 54, self.RULE_parenthesized_expression)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 227
+            self.state = 231
             self.match(baby_duck_grammarParser.T__15)
-            self.state = 228
+            self.state = 232
             self.expression()
-            self.state = 229
+            self.state = 233
             self.match(baby_duck_grammarParser.T__16)
         except RecognitionException as re:
             localctx.exception = re
@@ -2000,25 +2046,25 @@ class baby_duck_grammarParser ( Parser ):
     def f_call(self):
 
         localctx = baby_duck_grammarParser.F_callContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 54, self.RULE_f_call)
+        self.enterRule(localctx, 56, self.RULE_f_call)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 231
+            self.state = 235
             self.match(baby_duck_grammarParser.ID)
-            self.state = 232
+            self.state = 236
             self.match(baby_duck_grammarParser.T__15)
-            self.state = 234
+            self.state = 238
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & 24025038848) != 0):
-                self.state = 233
+                self.state = 237
                 self.f_call_helper()
 
 
-            self.state = 236
+            self.state = 240
             self.match(baby_duck_grammarParser.T__16)
-            self.state = 237
+            self.state = 241
             self.match(baby_duck_grammarParser.T__1)
         except RecognitionException as re:
             localctx.exception = re
@@ -2066,21 +2112,21 @@ class baby_duck_grammarParser ( Parser ):
     def f_call_helper(self):
 
         localctx = baby_duck_grammarParser.F_call_helperContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 56, self.RULE_f_call_helper)
+        self.enterRule(localctx, 58, self.RULE_f_call_helper)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 239
+            self.state = 243
             self.expression()
-            self.state = 244
+            self.state = 248
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==18:
-                self.state = 240
+                self.state = 244
                 self.match(baby_duck_grammarParser.T__17)
-                self.state = 241
+                self.state = 245
                 self.expression()
-                self.state = 246
+                self.state = 250
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 

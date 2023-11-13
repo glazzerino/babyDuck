@@ -32,13 +32,15 @@ f_param_list: (f_param_list_helper (',' f_param_list_helper)*)?;
 
 f_param_list_helper: (ID ':' type);
 
-funcs: type ID '(' f_param_list ')' '[' vars? body ']' ';';
+funcs: function_id '(' f_param_list ')' '[' vars? body ']' ';';
+
+function_id: type ID;
 
 vars: 'var' vars_declarations+;
 
 vars_declarations: (ID (',' ID)* ':' type ';');
 
-cycle:  while_keyword body 'do' '(' expression ')' ';';
+cycle:   'do' body 'while' '(' expression ')' ';';
 
 while_keyword: 'while';
 

@@ -134,6 +134,15 @@ class baby_duck_grammarListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by baby_duck_grammarParser#function_id.
+    def enterFunction_id(self, ctx:baby_duck_grammarParser.Function_idContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#function_id.
+    def exitFunction_id(self, ctx:baby_duck_grammarParser.Function_idContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#vars.
     def enterVars(self, ctx:baby_duck_grammarParser.VarsContext):
         pass
