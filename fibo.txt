@@ -1,0 +1,17 @@
+program Fibo;
+
+var
+  head, tail: int;
+
+main {
+  head = 0;
+  tail = 1;
+  do {
+    print(head);
+    print(tail);
+    head = head + tail;
+    tail = head + tail;
+  } while(head < 100);
+}
+
+end

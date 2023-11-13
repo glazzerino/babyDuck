@@ -1,0 +1,12 @@
+program CompilerV1;
+
+
+main 
+{ 
+    number1 = 1 + 1 * 1 / (1 + 2);
+
+    emptyFunction2(2, 3);
+    emptyFunction2(2, 3);
+}
+
+end
