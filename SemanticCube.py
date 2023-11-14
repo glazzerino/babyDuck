@@ -69,8 +69,6 @@ def parse_operator(operator: str):
         return Operator.GOTOT
     elif operator == "gotof":
         return Operator.GOTOF
-    
-
     else:
         raise Exception("Invalid operator: {}".format(operator))
 

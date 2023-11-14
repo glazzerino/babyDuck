@@ -8,8 +8,8 @@ main {
   tail = 1;
   print(head);
   
-  if (head == 1) {
-    print("head is 0");
+  if (head == 0) {
+    print("head is ", head);
   };
 
   do {

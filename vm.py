@@ -41,7 +41,6 @@ class VirtualMachine:
             quad = self.quads[self.pc]
             self.execute(quad)
             self.pc += 1
-        self.memory.print()
 
     def get(self, addr) -> Value:
         func = self.current_function_stack[-1]
@@ -77,6 +76,8 @@ class VirtualMachine:
             self.divide(quad)
         if quad.operator == Operator.LESS_THAN:
             self.less_than(quad)
+        if quad.operator == Operator.GREATER_THAN:
+            self.greater_than(quad)
         if quad.operator == Operator.GOTOT:
             self.gotot(quad)
         if quad.operator == Operator.GOTOF:
@@ -84,6 +85,9 @@ class VirtualMachine:
         if quad.operator == Operator.EQUAL:
             self.equals(quad)
 
+    def greater_than(self, quad: Quadruple):
+        return self.calculate(quad, "greater_than")
+    
     def gotof(self, quad: Quadruple):
         if not self.get_value(quad.left_operand).value:
             self.pc = quad.result
@@ -99,7 +103,7 @@ class VirtualMachine:
         return self.calculate(quad, "less_than")
     
     def print(self, quad):
-        print("BabyDuck says: " + str(self.get_value(quad.left_operand).value), end="")
+        print("🦆" + str(self.get_value(quad.left_operand).value), end="")
 
     def print_newline(self, quad):
         print()
@@ -112,7 +116,6 @@ class VirtualMachine:
     def divide(self, quad):
         left_operand = self.get_value(quad.left_operand)
         right_operand = self.get_value(quad.right_operand)
-        self.memory.print()
         result_type = get_result_type(
             left_operand.type, left_operand.type, quad.operator
         )

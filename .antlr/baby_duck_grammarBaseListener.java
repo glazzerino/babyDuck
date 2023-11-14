@@ -16,6 +16,18 @@ public class baby_duck_grammarBaseListener implements baby_duck_grammarListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterString(baby_duck_grammarParser.StringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitString(baby_duck_grammarParser.StringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterProgram(baby_duck_grammarParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -184,6 +196,18 @@ public class baby_duck_grammarBaseListener implements baby_duck_grammarListener 
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunction_id(baby_duck_grammarParser.Function_idContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunction_id(baby_duck_grammarParser.Function_idContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVars(baby_duck_grammarParser.VarsContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -215,6 +239,18 @@ public class baby_duck_grammarBaseListener implements baby_duck_grammarListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCycle(baby_duck_grammarParser.CycleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhile_keyword(baby_duck_grammarParser.While_keywordContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhile_keyword(baby_duck_grammarParser.While_keywordContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

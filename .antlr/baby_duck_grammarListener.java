@@ -7,6 +7,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface baby_duck_grammarListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link baby_duck_grammarParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void enterString(baby_duck_grammarParser.StringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link baby_duck_grammarParser#string}.
+	 * @param ctx the parse tree
+	 */
+	void exitString(baby_duck_grammarParser.StringContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link baby_duck_grammarParser#program}.
 	 * @param ctx the parse tree
 	 */
@@ -147,6 +157,16 @@ public interface baby_duck_grammarListener extends ParseTreeListener {
 	 */
 	void exitFuncs(baby_duck_grammarParser.FuncsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link baby_duck_grammarParser#function_id}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_id(baby_duck_grammarParser.Function_idContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link baby_duck_grammarParser#function_id}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_id(baby_duck_grammarParser.Function_idContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link baby_duck_grammarParser#vars}.
 	 * @param ctx the parse tree
 	 */
@@ -176,6 +196,16 @@ public interface baby_duck_grammarListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCycle(baby_duck_grammarParser.CycleContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link baby_duck_grammarParser#while_keyword}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhile_keyword(baby_duck_grammarParser.While_keywordContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link baby_duck_grammarParser#while_keyword}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhile_keyword(baby_duck_grammarParser.While_keywordContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link baby_duck_grammarParser#condition}.
 	 * @param ctx the parse tree

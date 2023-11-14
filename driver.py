@@ -45,6 +45,10 @@ class Listener(baby_duck_grammarListener):
         self.save_vars_to_memory(current_function_id)
         return super().enterProgram_post_var(ctx)
 
+    def exitString(self, ctx: baby_duck_grammarParser.StringContext):
+        print("listener string: " + ctx.getText())
+        return super().exitString(ctx)
+
     def enterFuncs(self, ctx: baby_duck_grammarParser.FuncsContext):
         self.variable_buffer = []
         return super().enterFuncs(ctx)
@@ -90,40 +94,30 @@ def determine_type(ctx):
 class Visitor(baby_duck_grammarVisitor):
     def __init__(self):
         self.temp_counter = 0
-        self.quadruples = []
-        self.operand_stack = []
-        self.operator_stack = []
-        self.type_stack = []
-        self.jump_stack = []
-        self.quadruples = []
-        self.temp_counter = 0
         self.label_counter = 0
         self.quadruples = []
-
+            
     def visitFactor(self, ctx: baby_duck_grammarParser.FactorContext):
         if ctx.parenthesized_expression():
-            # A parenthesized expression should be evaluated on its own terms.
+            # A parenthesized expression should be evaluated first.
             return self.visit(ctx.parenthesized_expression())
         else:
             unary_op = None
+            result = None
 
             if ctx.factor_operator():  # If there is a unary operator present
                 unary_op = ctx.factor_operator().getText()
-                operand = ctx.getChild(
-                    1
-                ).getText()  # The operand follows the unary operator
+                operand = ctx.getChild(1).getText()
             else:
-                operand = ctx.getChild(0).getText()  # Just a simple ID or cte
+                operand = ctx.getChild(0).getText()
 
             if unary_op:
-                temp_var = self.new_temporary()
-                self.generate_quadruple(unary_op, operand, None, temp_var)
-                self.operand_stack.append(temp_var)
+                result = self.new_temporary()
+                self.generate_quadruple(unary_op, operand, None, result)
             else:
-                # Push the operand onto the operand stack
-                self.operand_stack.append(operand)
+                result = operand
 
-        return self.operand_stack[-1] if self.operand_stack else None
+        return result
 
     def generate_quadruple(self, operator, left_operand, right_operand, result) -> int:
         operator = parse_operator(operator)
@@ -156,21 +150,6 @@ class Visitor(baby_duck_grammarVisitor):
             return temp_var
 
         return left
-        # elif ctx.getChildCount() == 3:
-        #     lhs_result = self.visit(ctx.exp(0))
-        #     rhs_result = self.visit(ctx.exp(1))
-
-        #     rel_op = ctx.rel_op().getText()
-
-        #     temp_var = self.new_temporary()
-
-        #     self.generate_quadruple(rel_op, lhs_result, rhs_result, temp_var)
-
-        #     self.operand_stack.append(temp_var)
-
-        #     return temp_var
-        # else:
-        #     raise Exception("Unsupported expression structure")
 
     def visitF_call(self, ctx: baby_duck_grammarParser.F_callContext):
         function_name = ctx.ID().getText()
@@ -281,7 +260,7 @@ class Visitor(baby_duck_grammarVisitor):
         return None
 
     def visitString(self, ctx: baby_duck_grammarParser.StringContext):
-        print(ctx.getText())
+        print("string: " + ctx.getText())
         return ctx.getText()
 
     def visitAssign(self, ctx: baby_duck_grammarParser.AssignContext):
