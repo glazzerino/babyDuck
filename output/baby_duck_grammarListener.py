@@ -8,6 +8,15 @@ else:
 # This class defines a complete listener for a parse tree produced by baby_duck_grammarParser.
 class baby_duck_grammarListener(ParseTreeListener):
 
+    # Enter a parse tree produced by baby_duck_grammarParser#string.
+    def enterString(self, ctx:baby_duck_grammarParser.StringContext):
+        pass
+
+    # Exit a parse tree produced by baby_duck_grammarParser#string.
+    def exitString(self, ctx:baby_duck_grammarParser.StringContext):
+        pass
+
+
     # Enter a parse tree produced by baby_duck_grammarParser#program.
     def enterProgram(self, ctx:baby_duck_grammarParser.ProgramContext):
         pass

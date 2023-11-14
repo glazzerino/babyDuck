@@ -79,6 +79,17 @@ class VirtualMachine:
             self.less_than(quad)
         if quad.operator == Operator.GOTOT:
             self.gotot(quad)
+        if quad.operator == Operator.GOTOF:
+            self.gotof(quad)
+        if quad.operator == Operator.EQUAL:
+            self.equals(quad)
+
+    def gotof(self, quad: Quadruple):
+        if not self.get_value(quad.left_operand).value:
+            self.pc = quad.result
+
+    def equals(self, quad):
+        self.calculate(quad, "equals")
 
     def gotot(self, quad):
         if self.get_value(quad.left_operand).value:

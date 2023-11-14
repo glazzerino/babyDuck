@@ -7,6 +7,11 @@ main {
   head = 0;
   tail = 1;
   print(head);
+  
+  if (head == 1) {
+    print("head is 0");
+  };
+
   do {
     temp = head;
     head = tail;

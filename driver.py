@@ -197,14 +197,29 @@ class Visitor(baby_duck_grammarVisitor):
         self.label_counter += 1
         return placeholder
 
-    def backpatch(self, placeolder: str, label: str):
-        for i, quad in enumerate(self.quadruples):
-            if quad.result == placeolder:
-                self.quadruples[i].result = label
+    def backpatch(self, target: int, replacement: int):
+        self.quadruples[target].result = replacement
+
+    def visitCondition(self, ctx: baby_duck_grammarParser.ConditionContext):
+        # 1. Evaluate condition
+        # 2. Generate gotof to jump to end of IF block
+        # 3. generate quads of IF block
+        # 4. backpatch the first gotof
+        # 4. If theres an ELSE block, add the quads
+        print(ctx.body().getText())
+
+        condition_temporary = self.visit(ctx.expression())
+        gotof = self.generate_quadruple("gotof", condition_temporary, None, None)
+        self.visit(ctx.body())
+        if_end_index = self.generate_quadruple("label", self.new_label(), None, None)
+        self.backpatch(gotof, if_end_index)
+
+    def visitBody(self, ctx: baby_duck_grammarParser.BodyContext):
+        for child in ctx.getChildren():
+            self.visit(child)
+        return None
 
     def visitCycle(self, ctx: baby_duck_grammarParser.CycleContext):
-        # its a do while
-
         # start with a new label
         start_index = self.generate_quadruple("label", self.new_label(), None, None)
 
@@ -216,7 +231,7 @@ class Visitor(baby_duck_grammarVisitor):
 
         self.generate_quadruple("gotot", result_temp_variable, None, start_index)
         return None
-    
+
     def print_all(self):
         for quad in self.quadruples:
             print(quad)
@@ -226,7 +241,7 @@ class Visitor(baby_duck_grammarVisitor):
         for statement in ctx.statement():
             self.visit(statement)
         return None
-    
+
     def visitExp(self, ctx: baby_duck_grammarParser.ExpContext):
         # Assume the first term is always present and visit it
         result = self.visit(ctx.term())
@@ -253,16 +268,21 @@ class Visitor(baby_duck_grammarVisitor):
 
     def visitPrint(self, ctx: baby_duck_grammarParser.PrintContext):
         if ctx.print_helper():
-            print_items = ctx.print_helper()
-            for item in print_items.expression():
-                item_result = self.visit(item)
-
-                self.generate_quadruple("print", item_result, None, None)
-            self.generate_quadruple("print_newline", None, None, None)
+            self.visit(ctx.print_helper())
         else:
             self.generate_quadruple("print_newline", None, None, None)
-
+        self.generate_quadruple("print_newline", None, None, None)
         return None
+
+    def visitPrint_helper(self, ctx: baby_duck_grammarParser.Print_helperContext):
+        for child in ctx.getChildren():
+            if child.getText() != ",":
+                self.generate_quadruple("print", self.visit(child), None, None)
+        return None
+
+    def visitString(self, ctx: baby_duck_grammarParser.StringContext):
+        print(ctx.getText())
+        return ctx.getText()
 
     def visitAssign(self, ctx: baby_duck_grammarParser.AssignContext):
         # get right hand side
@@ -273,20 +293,27 @@ class Visitor(baby_duck_grammarVisitor):
         self.generate_quadruple("=", right, None, "$" + left)
         return None
 
+def process_string_token(token):
+    if isinstance(token, str):
+        if token[0] == '"':
+            return token[1:-1]
+        return "$" + token if token[0] != "$" else token
+    return token
+
 def preprocess_quads(quads):
     new_quads = []
     for quad in quads:
         left = parse_string(quad.left_operand)
         right = parse_string(quad.right_operand)
-        if isinstance(left, str) and left[0] != "$":
-            left = "$" + left
-        if isinstance(right, str) and right[0] != "$":
-            right = "$" + right
+
+        left = process_string_token(left)
+        right = process_string_token(right) 
 
         quad.left_operand = left
         quad.right_operand = right
         new_quads.append(quad)
     return new_quads
+
 
 def main(argv):
     input_stream = FileStream(argv[1])
@@ -297,7 +324,7 @@ def main(argv):
     parser.addParseListener(Listener(memory_table))
     tree = parser.program()
     memory_table.print()
-    
+
     visitor = Visitor()
     visitor.visit(tree)
 
@@ -306,6 +333,7 @@ def main(argv):
         print(quad)
     vm = VirtualMachine(quads=new_quads, memory=memory_table)
     vm.run()
-    
+
+
 if __name__ == "__main__":
     main(sys.argv)

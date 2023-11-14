@@ -4,7 +4,7 @@ ID: [a-zA-Z] ([a-zA-Z] | [0-9])*;
 INT: [0-9]+;
 WS: [ \t\r\n]+ -> skip;
 FLOAT: [0-9]+ '.' [0-9]+;
-STRING: '"' .*? '"';
+string: '"' .*? '"';
 
 program: 'program' ID ';' vars? program_post_var;
 
@@ -20,13 +20,13 @@ assign: ID '=' expression ';';
 
 expression: exp (rel_op expression)?;
 
-rel_op: '<' | '>' | '!=';
+rel_op: '<' | '>' | '!=' | '==' | '<=' | '>=c';
 
 cte: INT | FLOAT;
 
-print: 'print' '(' print_helper? ')' ';';
+print: 'print' '(' print_helper ')' ';';
 
-print_helper: (expression | STRING) (',' (expression | STRING))*;
+print_helper: (expression | string) (',' (expression | string))*;
 
 f_param_list: (f_param_list_helper (',' f_param_list_helper)*)?;
 

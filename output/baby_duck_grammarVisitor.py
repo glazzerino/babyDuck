@@ -9,6 +9,11 @@ else:
 
 class baby_duck_grammarVisitor(ParseTreeVisitor):
 
+    # Visit a parse tree produced by baby_duck_grammarParser#string.
+    def visitString(self, ctx:baby_duck_grammarParser.StringContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by baby_duck_grammarParser#program.
     def visitProgram(self, ctx:baby_duck_grammarParser.ProgramContext):
         return self.visitChildren(ctx)

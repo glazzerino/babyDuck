@@ -29,6 +29,7 @@ class Operator(Enum):
     PRINT_NEWLINE = 14
     LABEL = 15
     GOTOT = 16
+    GOTOF = 17
 
 
 def parse_operator(operator: str):
@@ -66,6 +67,9 @@ def parse_operator(operator: str):
         return Operator.LABEL
     elif operator == "gotot":
         return Operator.GOTOT
+    elif operator == "gotof":
+        return Operator.GOTOF
+    
 
     else:
         raise Exception("Invalid operator: {}".format(operator))
