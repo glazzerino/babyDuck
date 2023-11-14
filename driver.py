@@ -1,11 +1,11 @@
 import sys
 from antlr4 import *
+from mem_tables import MemoryTable, FunctionID, Value
 from output.baby_duck_grammarLexer import baby_duck_grammarLexer
 from output.baby_duck_grammarParser import baby_duck_grammarParser
 from Quadruple import Quadruple
 from output.baby_duck_grammarListener import baby_duck_grammarListener
 from output.baby_duck_grammarVisitor import baby_duck_grammarVisitor
-from mem_tables import MemoryTable, FunctionID, Value
 from vm import VirtualMachine
 from SemanticCube import (
     Operator,

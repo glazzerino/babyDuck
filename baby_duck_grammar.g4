@@ -4,7 +4,7 @@ ID: [a-zA-Z] ([a-zA-Z] | [0-9])*;
 INT: [0-9]+;
 WS: [ \t\r\n]+ -> skip;
 FLOAT: [0-9]+ '.' [0-9]+;
-string: '"'.*?'"';
+string: '"'*?'"';
 
 program: 'program' ID ';' vars? program_post_var;
 

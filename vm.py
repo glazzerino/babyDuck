@@ -1,7 +1,5 @@
-from tables import *
 from Quadruple import Quadruple
 from SemanticCube import (
-    cube,
     Operator,
     Type,
     parse_string,
@@ -130,7 +128,8 @@ class VirtualMachine:
         result_type = get_result_type(
             left_operand.type, left_operand.type, quad.operator
         )
-
+        if result_type == Type.ERROR:
+            raise Exception("Invalid operation")
         if operation == "add":
             result_python = left_operand.value + right_operand.value
         elif operation == "multiply":
@@ -163,3 +162,5 @@ class VirtualMachine:
 
     def substract(self, quad):
         self.calculate(quad, "substract")
+
+    
