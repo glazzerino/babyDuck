@@ -1,16 +1,17 @@
 program Fibo;
 
 var
-  head, tail: int;
+  head, tail, temp: int;
 
 main {
   head = 0;
   tail = 1;
+  print(head);
   do {
+    temp = head;
+    head = tail;
+    tail = temp + tail;
     print(head);
-    print(tail);
-    head = head + tail;
-    tail = head + tail;
   } while(head < 100);
 }
 

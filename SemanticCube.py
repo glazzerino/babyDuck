@@ -3,12 +3,13 @@ from enum import Enum
 
 
 class Type(Enum):
-    """Represents the type an operand can take"""
     INT = 0
     FLOAT = 1
     BOOL = 2
     ERROR = 3
     ID = 4
+    STRING = 5
+
 
 class Operator(Enum):
     PLUS = 0
@@ -27,6 +28,7 @@ class Operator(Enum):
     PRINT = 13
     PRINT_NEWLINE = 14
     LABEL = 15
+    GOTOT = 16
 
 
 def parse_operator(operator: str):
@@ -62,10 +64,13 @@ def parse_operator(operator: str):
         return Operator.PRINT_NEWLINE
     elif operator == "label":
         return Operator.LABEL
-    
+    elif operator == "gotot":
+        return Operator.GOTOT
+
     else:
         raise Exception("Invalid operator: {}".format(operator))
-    
+
+
 def parse_string_to_type(data_type: Type, data: str):
     if data_type == Type.INT:
         return int(data)
@@ -79,7 +84,8 @@ def parse_string_to_type(data_type: Type, data: str):
         return data
     else:
         raise Exception("Invalid data type: {}".format(data_type))
-    
+
+
 def parse_string(data):
     if data is None:
         return None
@@ -97,8 +103,11 @@ def parse_string(data):
         return False
     else:
         return data
+
+
 def get_result_type(left, right, operator) -> Type:
-    return cube[left.value][right.value][operator.value]
+    return rules[operator][left][right]
+
 
 def python_type_to_enum(python_type):
     if python_type == int:
@@ -111,6 +120,7 @@ def python_type_to_enum(python_type):
         return Type.ID
     else:
         raise Exception("Invalid type: {}".format(python_type))
+
 
 def baby_duck_type_to_enum(baby_duck_type: str):
     if baby_duck_type == "int":
@@ -129,10 +139,104 @@ def baby_duck_type_to_enum(baby_duck_type: str):
         return Type.ERROR
     else:
         raise Exception("Invalid type: {}".format(baby_duck_type))
-    
 
-    
-# Semantic Cube. 
+
+rules = {
+    Operator.PLUS: {
+        Type.INT: {
+            Type.INT: Type.INT,
+            Type.FLOAT: Type.FLOAT,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.FLOAT,
+            Type.FLOAT: Type.FLOAT,
+        },
+    },
+    Operator.MINUS: {
+        Type.INT: {
+            Type.INT: Type.INT,
+            Type.FLOAT: Type.FLOAT,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.FLOAT,
+            Type.FLOAT: Type.FLOAT,
+        },
+    },
+    Operator.TIMES: {
+        Type.INT: {
+            Type.INT: Type.INT,
+            Type.FLOAT: Type.FLOAT,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.FLOAT,
+            Type.FLOAT: Type.FLOAT,
+        },
+    },
+    Operator.DIVIDE: {
+        Type.INT: {
+            Type.INT: Type.INT,
+            Type.FLOAT: Type.FLOAT,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.FLOAT,
+            Type.FLOAT: Type.FLOAT,
+        },
+    },
+    Operator.EQUAL: {
+        Type.INT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+        Type.BOOL: {
+            Type.BOOL: Type.BOOL,
+        },
+        Type.STRING: {
+            Type.STRING: Type.BOOL,
+        },
+    },
+    Operator.NOT_EQUAL: {
+        Type.INT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+        Type.BOOL: {
+            Type.BOOL: Type.BOOL,
+        },
+        Type.STRING: {
+            Type.STRING: Type.BOOL,
+        },
+    },
+    Operator.LESS_THAN: {
+        Type.INT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+    },
+    Operator.GREATER_THAN: {
+        Type.INT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+        Type.FLOAT: {
+            Type.INT: Type.BOOL,
+            Type.FLOAT: Type.BOOL,
+        },
+    },
+}
+
+# Semantic Cube.
 # Specifices the result of an operation between two operands.
 # The result is determined by the type of the operands and the operator.
 
@@ -177,4 +281,3 @@ cube[Type.BOOL.value][Type.BOOL.value][Operator.TIMES.value] = Type.ERROR
 cube[Type.BOOL.value][Type.BOOL.value][Operator.DIVIDE.value] = Type.ERROR
 cube[Type.BOOL.value][Type.BOOL.value][Operator.EQUAL.value] = Type.BOOL
 cube[Type.BOOL.value][Type.BOOL.value][Operator.NOT_EQUAL.value] = Type.BOOL
-

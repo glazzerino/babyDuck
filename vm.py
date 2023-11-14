@@ -7,6 +7,7 @@ from SemanticCube import (
     parse_string,
     python_type_to_enum,
     get_result_type,
+    rules
 )
 from mem_tables import MemoryTable, FunctionID, Value
 
@@ -15,6 +16,9 @@ Operand = Value
 
 class VirtualMachine:
     def __init__(self, quads, memory: MemoryTable):
+        print("Initializing Virtual Machine")
+        for quad in quads:
+            print(quad)
         self.memory = memory
         self.quads = quads
         self.pc = 0
@@ -71,7 +75,18 @@ class VirtualMachine:
             self.multiply(quad)
         if quad.operator == Operator.DIVIDE:
             self.divide(quad)
+        if quad.operator == Operator.LESS_THAN:
+            self.less_than(quad)
+        if quad.operator == Operator.GOTOT:
+            self.gotot(quad)
 
+    def gotot(self, quad):
+        if self.get_value(quad.left_operand).value:
+            self.pc = quad.result
+
+    def less_than(self, quad):
+        return self.calculate(quad, "less_than")
+    
     def print(self, quad):
         print("BabyDuck says: " + str(self.get_value(quad.left_operand).value), end="")
 
@@ -98,7 +113,6 @@ class VirtualMachine:
     def calculate(self, quad, operation):
         left_operand = self.get_value(quad.left_operand)
         right_operand = self.get_value(quad.right_operand)
-        self.memory.print()
         result_type = get_result_type(
             left_operand.type, left_operand.type, quad.operator
         )
@@ -109,6 +123,14 @@ class VirtualMachine:
             result_python = left_operand.value * right_operand.value
         elif operation == "divide":
             result_python = left_operand.value / right_operand.value
+        elif operation == "substract":
+            result_python = left_operand.value - right_operand.value
+        elif operation == "greater_than":
+            result_python = left_operand.value > right_operand.value
+        elif operation == "less_than":
+            result_python = left_operand.value < right_operand.value
+        elif operation == "equals":
+            result_python = left_operand.value == right_operand.value
 
         result_value = Value(result_type, result_python)
         self.set(quad.result, result_value)

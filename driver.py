@@ -13,7 +13,7 @@ from SemanticCube import (
     baby_duck_type_to_enum,
     parse_operator,
     parse_string,
-    python_type_to_enum
+    python_type_to_enum,
 )
 
 
@@ -197,80 +197,36 @@ class Visitor(baby_duck_grammarVisitor):
         self.label_counter += 1
         return placeholder
 
-    def visitCondition(self, ctx: baby_duck_grammarParser.ConditionContext):
-        condition = self.visit(ctx.expression())
-
-        false_placeholder = self.new_placeholder()
-
-        self.jump_stack.append(("if_false", false_placeholder))
-        false_jump_index = self.generate_quadruple(
-            "if_false", condition, None, false_placeholder
-        )
-
-        self.visit(ctx.body())
-
-        end_if_placeholder = None
-
-        if ctx.condition_else():
-            end_if_placeholder = self.new_placeholder()
-            self.jump_stack.append(("goto_end_if", end_if_placeholder))
-            end_if_index = self.generate_quadruple(
-                "goto", None, None, end_if_placeholder
-            )
-
-        false_jump_label = self.new_label()
-        self.backpatch(false_jump_index, false_jump_label)
-        self.jump_stack.pop()
-
-        if ctx.condition_else():
-            self.visit(ctx.condition_else())
-            end_if_label = self.new_label()
-            self.backpatch(end_if_index, end_if_label)
-            self.jump_stack.pop()
-
-        if not ctx.condition_else():
-            self.generate_quadruple("label", false_jump_label, None, None)
-        if end_if_placeholder:
-            self.generate_quadruple("label", end_if_label, None, None)
-        return None
-
     def backpatch(self, placeolder: str, label: str):
         for i, quad in enumerate(self.quadruples):
             if quad.result == placeolder:
                 self.quadruples[i].result = label
 
     def visitCycle(self, ctx: baby_duck_grammarParser.CycleContext):
-        start_label = self.new_label()
-        self.jump_stack.append(("start", start_label))
-        self.generate_quadruple("label", start_label, None, None)
+        # its a do while
 
-        condition_result = self.visit(ctx.expression())
-        exit_label_placeholder = self.new_placeholder()
-        self.jump_stack.append(("end", exit_label_placeholder))
-        exit_index = self.generate_quadruple(
-            "if_false", condition_result, None, exit_label_placeholder
-        )
+        # start with a new label
+        start_index = self.generate_quadruple("label", self.new_label(), None, None)
 
+        # generate body quads
         self.visit(ctx.body())
 
-        self.generate_quadruple("goto", start_label, None, None)
+        # visit condition quads, which also generates quads
+        result_temp_variable = self.visit(ctx.expression())
 
-        end_label = self.new_label()
-        self.generate_quadruple("label", end_label, None, None)
-
-        self.backpatch(exit_index, end_label)
-
-        while self.jump_stack and self.jump_stack[-1][0] == "end":
-            label_type, placeholder = self.jump_stack.pop()
-            self.backpatch(placeholder, end_label)
-
+        self.generate_quadruple("gotot", result_temp_variable, None, start_index)
         return None
-
+    
     def print_all(self):
         for quad in self.quadruples:
             print(quad)
         print(self.operand_stack)
 
+    def visitBody(self, ctx: baby_duck_grammarParser.BodyContext):
+        for statement in ctx.statement():
+            self.visit(statement)
+        return None
+    
     def visitExp(self, ctx: baby_duck_grammarParser.ExpContext):
         # Assume the first term is always present and visit it
         result = self.visit(ctx.term())
