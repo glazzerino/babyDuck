@@ -1,0 +1,16 @@
+program Arithmetic;
+
+var
+  temp, factorial: int;
+
+main {
+    temp = 5;
+    factorial = 1;
+    do {
+        factorial = factorial * temp;
+        temp = temp - 1;
+    } while(temp > 0);
+    print("factorial:",factorial);
+}
+
+end
