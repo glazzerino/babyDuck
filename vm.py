@@ -109,7 +109,7 @@ class VirtualMachine:
         self.print_buffer += " " + str(self.get_value(quad.left_operand).value)
 
     def print_newline(self, quad):
-        print("🦆: " + self.print_buffer)
+        print("🦆 " + self.print_buffer)
         self.print_buffer = ""
 
     def assign(self, quad):
