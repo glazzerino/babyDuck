@@ -96,7 +96,7 @@ class Visitor(baby_duck_grammarVisitor):
         self.temp_counter = 0
         self.label_counter = 0
         self.quadruples = []
-            
+
     def visitFactor(self, ctx: baby_duck_grammarParser.FactorContext):
         if ctx.parenthesized_expression():
             # A parenthesized expression should be evaluated first.
@@ -110,10 +110,9 @@ class Visitor(baby_duck_grammarVisitor):
                 operand = ctx.getChild(1).getText()
             else:
                 operand = ctx.getChild(0).getText()
-
             if unary_op:
                 result = self.new_temporary()
-                self.generate_quadruple(unary_op, operand, None, result)
+                self.generate_quadruple(unary_op, None, operand, result)
             else:
                 result = operand
 
@@ -183,15 +182,33 @@ class Visitor(baby_duck_grammarVisitor):
         # 1. Evaluate condition
         # 2. Generate gotof to jump to end of IF block
         # 3. generate quads of IF block
-        # 4. backpatch the first gotof
-        # 4. If theres an ELSE block, add the quads
+        # 4. Unconditional jump to end of the whole IF/ELSE block
+        # 5. Generate label for end of IF block
+        # 6. Generate else block if present
+        # 7. Generate label for end of whole IF/ELSE block
+        # 8. Backpatch gotof to end of IF block
+        # 9. Backpatch unconditional jump to end of whole IF/ELSE block
         print(ctx.body().getText())
 
         condition_temporary = self.visit(ctx.expression())
         gotof = self.generate_quadruple("gotof", condition_temporary, None, None)
         self.visit(ctx.body())
+        unconditional_end_jump = self.generate_quadruple("goto", None, None, None)
         if_end_index = self.generate_quadruple("label", self.new_label(), None, None)
+
+        if ctx.condition_else():
+            self.visit(ctx.condition_else())
+
+        # mark end of the whole if/else block
+        if_else_block_end = self.generate_quadruple(
+            "label", self.new_label(), None, None
+        )
+
         self.backpatch(gotof, if_end_index)
+        self.backpatch(unconditional_end_jump, if_else_block_end)
+
+    def visitCondition_else(self, ctx: baby_duck_grammarParser.Condition_elseContext):
+        return self.visit(ctx.body())
 
     def visitBody(self, ctx: baby_duck_grammarParser.BodyContext):
         for child in ctx.getChildren():
@@ -272,12 +289,14 @@ class Visitor(baby_duck_grammarVisitor):
         self.generate_quadruple("=", right, None, "$" + left)
         return None
 
+
 def process_string_token(token):
     if isinstance(token, str):
         if token[0] == '"':
             return token[1:-1]
         return "$" + token if token[0] != "$" else token
     return token
+
 
 def preprocess_quads(quads):
     new_quads = []
@@ -286,7 +305,7 @@ def preprocess_quads(quads):
         right = parse_string(quad.right_operand)
 
         left = process_string_token(left)
-        right = process_string_token(right) 
+        right = process_string_token(right)
 
         quad.left_operand = left
         quad.right_operand = right
@@ -308,8 +327,8 @@ def main(argv):
     visitor.visit(tree)
 
     new_quads = preprocess_quads(visitor.quadruples)
-    for quad in new_quads:
-        print(quad)
+    for i, quad in enumerate(new_quads):
+        print(i, quad)
     vm = VirtualMachine(quads=new_quads, memory=memory_table)
     vm.run()
 

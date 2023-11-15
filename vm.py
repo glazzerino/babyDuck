@@ -5,7 +5,7 @@ from SemanticCube import (
     parse_string,
     python_type_to_enum,
     get_result_type,
-    rules
+    rules,
 )
 from mem_tables import MemoryTable, FunctionID, Value
 
@@ -80,12 +80,17 @@ class VirtualMachine:
             self.gotot(quad)
         if quad.operator == Operator.GOTOF:
             self.gotof(quad)
+        if quad.operator == Operator.GOTO:
+            self.goto(quad)
         if quad.operator == Operator.EQUAL:
             self.equals(quad)
 
     def greater_than(self, quad: Quadruple):
         return self.calculate(quad, "greater_than")
-    
+
+    def goto(self, quad: Quadruple):
+        self.pc = quad.result + 1
+
     def gotof(self, quad: Quadruple):
         if not self.get_value(quad.left_operand).value:
             self.pc = quad.result
@@ -99,7 +104,7 @@ class VirtualMachine:
 
     def less_than(self, quad):
         return self.calculate(quad, "less_than")
-    
+
     def print(self, quad):
         print("🦆" + str(self.get_value(quad.left_operand).value), end="")
 
@@ -161,6 +166,7 @@ class VirtualMachine:
         self.calculate(quad, "multiply")
 
     def substract(self, quad):
+        if quad.left_operand is None:
+            # unary minus
+            quad.left_operand = 0
         self.calculate(quad, "substract")
-
-    
