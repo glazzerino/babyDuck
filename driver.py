@@ -216,6 +216,11 @@ class Visitor(baby_duck_grammarVisitor):
         return None
 
     def visitCycle(self, ctx: baby_duck_grammarParser.CycleContext):
+        # generate label for start of cycle
+        # generate body quads
+        # visit condition quads
+        # go back to step 1
+        
         # start with a new label
         start_index = self.generate_quadruple("label", self.new_label(), None, None)
 

@@ -20,6 +20,7 @@ class VirtualMachine:
         self.memory = memory
         self.quads = quads
         self.pc = 0
+        self.print_buffer = ""
         self.current_function_stack = [FunctionID("global", "void")]
 
     def get_value(self, identifier) -> Value:
@@ -52,7 +53,6 @@ class VirtualMachine:
         if self.is_identifier(token):
             return self.get(token)
         else:
-            # its a constant
             parsed_token = parse_string(token)
             cte_type = python_type_to_enum(type(parsed_token))
             return Value(cte_type, parsed_token)
@@ -106,10 +106,11 @@ class VirtualMachine:
         return self.calculate(quad, "less_than")
 
     def print(self, quad):
-        print("🦆" + str(self.get_value(quad.left_operand).value), end="")
+        self.print_buffer += " " + str(self.get_value(quad.left_operand).value)
 
     def print_newline(self, quad):
-        print()
+        print("🦆: " + self.print_buffer)
+        self.print_buffer = ""
 
     def assign(self, quad):
         target = quad.result
