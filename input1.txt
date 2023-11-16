@@ -1,0 +1,37 @@
+program CompilerV1;
+var 
+    foo: int; 
+    bar, foobar, barfoo: float;
+
+void emptyFunction1() [
+    var
+        temp: int;
+    {
+        temp = 1 / 2 * (2 + 3);
+        if (temp > 10) { 
+            print("Print mayor que 10");
+        } else {
+            print("Print no jala");
+        };
+    }
+];
+void emptyFunction2(floatNumber: float, intNumber: int) [
+    var 
+        number1: int;
+        number2: float;
+    {
+        number1 = 0;
+        number2 = 3.0;
+
+        while {
+            number1 = number1 + 1;
+        } do (number1 > number2);
+    }
+];
+
+main 
+{ 
+    emptyFunction2(2, 3);
+}
+
+end

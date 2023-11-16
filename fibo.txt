@@ -1,0 +1,25 @@
+program Fibo;
+
+var
+  head, tail, temp: int;
+
+main {
+  head = 0;
+  tail = 1;
+  print(head);
+  
+  if (head > -1) {
+    print("head is ", head);
+  } else {
+    print("head is not more than -1");
+  };
+
+  do {
+    temp = head;
+    head = tail;
+    tail = temp + tail;
+    print(head);
+  } while(head < 100);
+}
+
+end
